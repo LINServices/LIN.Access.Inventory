@@ -8,3 +8,6 @@ global using System.Threading.Tasks;
 global using LIN.Types.Enumerations;
 global using Microsoft.AspNetCore.SignalR.Client;
 global using LIN.Modules;
+global using LIN.Types.Auth.Models;
+global using LIN.Types.Auth.Abstracts;
+global using LIN.Types.Auth.Enumerations;
