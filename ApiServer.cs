@@ -1,4 +1,4 @@
-﻿namespace LIN.Access;
+﻿namespace LIN.Access.Inventory;
 
 
 public static class ApiServer

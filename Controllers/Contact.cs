@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Controllers;
+﻿using LIN.Access.Inventory;
+
+namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Contact

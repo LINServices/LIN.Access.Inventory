@@ -1,4 +1,4 @@
-﻿namespace LIN.Access.Hubs;
+﻿namespace LIN.Access.Inventory.Hubs;
 
 
 public class InventoryAccessHub
@@ -110,7 +110,7 @@ public class InventoryAccessHub
     /// <param name="inventario">ID del inventario</param>
     public InventoryAccessHub(int inventario)
     {
-        this.Inventario = inventario;
+        Inventario = inventario;
         Suscribe();
     }
 
@@ -125,7 +125,7 @@ public class InventoryAccessHub
         {
             // Crea la conexion al HUB
             HubConnection = new HubConnectionBuilder()
-                 .WithUrl(LIN.Access.ApiServer.PathURL("realtime/inventory"))
+                 .WithUrl(ApiServer.PathURL("realtime/inventory"))
                  .WithAutomaticReconnect()
                  .Build();
 
@@ -155,7 +155,8 @@ public class InventoryAccessHub
             // Suscribe al grupo
             await HubConnection.InvokeAsync("JoinGroup", $"{Inventario}");
         }
-        catch {
+        catch
+        {
 
         }
 
@@ -174,7 +175,8 @@ public class InventoryAccessHub
         {
             await HubConnection!.InvokeAsync("AddProduct", $"{inventario}", productID);
         }
-        catch {
+        catch
+        {
 
         }
 

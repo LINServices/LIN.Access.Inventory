@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Controllers;
+﻿using LIN.Access.Inventory;
+
+namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Inflows
@@ -130,8 +132,8 @@ public static class Inflows
 
 
 
-    
-    public async static Task<ReadOneResponse<List<byte>>> InformeMonth(int contextUser,int id, int mes, int año)
+
+    public async static Task<ReadOneResponse<List<byte>>> InformeMonth(int contextUser, int id, int mes, int año)
     {
 
         // Crear HttpClient

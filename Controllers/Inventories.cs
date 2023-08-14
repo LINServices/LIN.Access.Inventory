@@ -1,4 +1,4 @@
-﻿namespace LIN.Access.Controllers;
+﻿namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Inventories

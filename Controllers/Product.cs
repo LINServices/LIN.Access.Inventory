@@ -1,14 +1,16 @@
-﻿namespace LIN.Access.Controllers;
+﻿using LIN.Access.Inventory;
+
+namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Product
 {
 
 
-   /// <summary>
-   /// Crea un nuevo producto
-   /// </summary>
-   /// <param name="modelo">Modelo</param>
+    /// <summary>
+    /// Crea un nuevo producto
+    /// </summary>
+    /// <param name="modelo">Modelo</param>
     public async static Task<CreateResponse> Create(ProductDataTransfer modelo)
     {
 
@@ -105,7 +107,7 @@ public static class Product
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL("product/read/all/templates");
 
-        url = LIN.Modules.Web.AddParameters(url, new()
+        url = Web.AddParameters(url, new()
         {
             { "template", template }
         });
