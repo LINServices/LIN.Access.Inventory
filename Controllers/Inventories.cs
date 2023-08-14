@@ -141,7 +141,7 @@ public static class Inventories
     /// <param name="id">ID del inventario</param>
     /// <param name="rol">Nuevo rol</param>
     /// <param name="token">Token de acceso</param>
-    public async static Task<ResponseBase> UpdateRol(int id, InventoryRols rol, string token)
+    public async static Task<ResponseBase> UpdateRol(int id, InventoryRoles rol, string token)
     {
 
         // Variables

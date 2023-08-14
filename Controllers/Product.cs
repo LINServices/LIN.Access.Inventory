@@ -194,23 +194,6 @@ public static class Product
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /// <summary>
     /// Obtiene un producto por medio del ID de detalle de producto
     /// </summary>

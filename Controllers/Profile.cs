@@ -249,7 +249,7 @@ public static class Profile
     /// <summary>
     /// Busqueda de usuarios por medio de su ID
     /// </summary>
-    public async static Task<ReadAllResponse<UserDataModel>> SearhByPattern(string pattern, int id)
+    public async static Task<ReadAllResponse<ProfileModel>> SearhByPattern(string pattern, int id)
     {
 
         // Crear HttpClient
@@ -271,7 +271,7 @@ public static class Profile
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<UserDataModel>>(responseBody) ?? new();
+            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ProfileModel>>(responseBody) ?? new();
 
 
             return obj ?? new();
@@ -290,60 +290,6 @@ public static class Profile
 
 
     }
-
-
-
-
-
-
-    public async static Task<ReadAllResponse<UserDataModel>> GetAll(string pattern, string token)
-    {
-
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
-
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("user/findAllUsers");
-
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("pattern", $"{pattern}");
-        request.Headers.Add("token", $"{token}");
-
-        try
-        {
-            // Hacer la solicitud GET
-            var response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<UserDataModel>>(responseBody) ?? new();
-
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
-
-    }
-
-
-
-
-
-
-
 
 
 
