@@ -42,7 +42,7 @@ public sealed class Session
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
-    public static bool IsDevOpen { get => Instance.Informacion.ID > 0; }
+    public static bool IsLocalOpen { get => Instance.Informacion.ID > 0; }
 
 
 
