@@ -52,7 +52,7 @@ public static class Inventories
     /// Obtiene los inventarios que están asociados a una cuenta
     /// </summary>
     /// <param name="id">ID de la cuenta</param>
-    public async static Task<ReadAllResponse<InventoryDataModel>> ReadAll(int id)
+    public async static Task<ReadAllResponse<InventoryDataModel>> ReadAll(string token)
     {
 
         // Crear HttpClient
@@ -63,7 +63,7 @@ public static class Inventories
 
         // Crear HttpRequestMessage y agregar el encabezado
         var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        request.Headers.Add("token", $"{token}");
 
         try
         {
