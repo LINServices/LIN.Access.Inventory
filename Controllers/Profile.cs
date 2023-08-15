@@ -69,7 +69,7 @@ public static class Profile
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL("profile/login");
 
-        Web.AddParameters(url, new()
+        url = Web.AddParameters(url, new()
         {
             {"user",cuenta },
             {"password",password }
