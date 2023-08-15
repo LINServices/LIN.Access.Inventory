@@ -1,6 +1,4 @@
-﻿using LIN.Access.Inventory;
-
-namespace LIN.Access.Inventory.Controllers;
+﻿namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Profile
@@ -251,7 +249,7 @@ public static class Profile
     /// <summary>
     /// Busqueda de usuarios por medio de su ID
     /// </summary>
-    public async static Task<ReadAllResponse<ProfileModel>> SearhByPattern(string pattern, int id)
+    public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearhByPattern(string pattern, int id)
     {
 
         // Crear HttpClient
@@ -273,7 +271,7 @@ public static class Profile
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ProfileModel>>(responseBody) ?? new();
+            var obj = JsonConvert.DeserializeObject<ReadAllResponse<SessionModel<ProfileModel>>>(responseBody) ?? new();
 
 
             return obj ?? new();

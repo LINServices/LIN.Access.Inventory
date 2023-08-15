@@ -50,7 +50,7 @@ public static class Product
     /// Obtiene la lista de productos asociados a un inventario
     /// </summary>
     /// <param name="id">ID del inventario</param>
-    public async static Task<ReadAllResponse<ProductDataTransfer>> ReadAll(int id)
+    public async static Task<ReadAllResponse<ProductDataTransfer>> ReadAll(int id, string token)
     {
 
         // Crear HttpClient
@@ -62,6 +62,7 @@ public static class Product
         // Crear HttpRequestMessage y agregar el encabezado
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Add("id", $"{id}");
+        request.Headers.Add("token", $"{token}");
 
         try
         {
