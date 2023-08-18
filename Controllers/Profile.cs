@@ -115,7 +115,7 @@ public static class Profile
         using var httpClient = new HttpClient();
 
         // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("user/LoginWithToken");
+        string url = ApiServer.PathURL("profile/LoginWithToken");
 
 
         // Crear HttpRequestMessage y agregar el encabezado
