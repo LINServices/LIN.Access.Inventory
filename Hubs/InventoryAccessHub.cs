@@ -46,6 +46,11 @@ public class InventoryAccessHub
 
 
 
+    public void Dispose()
+    {
+        _= HubConnection?.DisposeAsync();
+    }
+
 
     /// <summary>
     /// Envía el evento

@@ -11,11 +11,13 @@ public static class Product
     /// Crea un nuevo producto
     /// </summary>
     /// <param name="modelo">Modelo</param>
-    public async static Task<CreateResponse> Create(ProductDataTransfer modelo)
+    public async static Task<CreateResponse> Create(ProductDataTransfer modelo, string token)
     {
 
         // Variables
         var client = new HttpClient();
+
+        client.DefaultRequestHeaders.Add("token", $"{token}");
 
         string url = ApiServer.PathURL("product/create");
         string json = JsonConvert.SerializeObject(modelo);
