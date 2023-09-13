@@ -16,7 +16,7 @@ public static class Profile
         using var httpClient = new HttpClient();
 
         // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("user/read/id");
+        string url = ApiServer.PathURL("profile/read/id");
 
         url = Web.AddParameters(url, new(){
             {"id",id.ToString() }
