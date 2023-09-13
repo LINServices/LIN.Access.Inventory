@@ -249,19 +249,24 @@ public static class Profile
     /// <summary>
     /// Busqueda de usuarios por medio de su ID
     /// </summary>
-    public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearhByPattern(string pattern, int id)
+    public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearhByPattern(string pattern, string token)
     {
 
         // Crear HttpClient
         using var httpClient = new HttpClient();
 
         // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("user/searchByPattern");
+        string url = ApiServer.PathURL("Bridget/search");
+
+        url = Web.AddParameters(url, new()
+        {
+            { "userName", pattern }
+        }
+        );
 
         // Crear HttpRequestMessage y agregar el encabezado
         var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("pattern", $"{pattern}");
-        request.Headers.Add("id", $"{id}");
+        request.Headers.Add("token", $"{token}");
 
         try
         {
