@@ -300,12 +300,14 @@ public static class Inventories
     /// </summary>
     /// <param name="inv">ID del inventario</param>
     /// <param name="user">ID del usuario que esta consultando</param>
-    public async static Task<ReadAllResponse<IntegrantDataModel>> GetIntegrants(int inv, int user)
+    public async static Task<ReadAllResponse<IntegrantDataModel>> GetIntegrants(int inv, int user, string token)
     {
 
         // Crear HttpClient
         using var httpClient = new HttpClient();
 
+
+        httpClient.DefaultRequestHeaders.Add("token", token);
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL("Inventory/access/members");
 
