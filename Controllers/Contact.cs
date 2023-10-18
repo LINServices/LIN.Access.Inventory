@@ -1,4 +1,5 @@
 ﻿using LIN.Access.Inventory;
+using LIN.Types.Contacts.Models;
 
 namespace LIN.Access.Inventory.Controllers;
 
@@ -7,53 +8,13 @@ public static class Contact
 {
 
 
-    /// <summary>
-    /// Crea un nuevo contacto
-    /// </summary>
-    /// <param name="modelo">Modelo del contacto</param>
-    public async static Task<CreateResponse> Create(ContactDataModel modelo)
-    {
-
-        // Url del servicio /
-        string url = ApiServer.PathURL("contact/create");
-
-        // Objeto JSON
-        string json = JsonConvert.SerializeObject(modelo);
-
-
-        // Ejecución
-        try
-        {
-
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            var response = await new HttpClient().PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            CreateResponse obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent) ?? new();
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
-
-    }
-
 
 
     /// <summary>
     /// Obtiene un contacto
     /// </summary>
     /// <param name="id">ID del contacto</param>
-    public async static Task<ReadOneResponse<ContactDataModel>> Read(int id)
+    public async static Task<ReadOneResponse<ContactModel>> Read(int id)
     {
 
         // Crear HttpClient
@@ -75,7 +36,7 @@ public static class Contact
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ContactDataModel>>(responseBody);
+            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ContactModel>>(responseBody);
 
             return obj ?? new();
 
@@ -96,7 +57,7 @@ public static class Contact
     /// Obtiene los contactos asociados a una cuenta
     /// </summary>
     /// <param name="id">ID de la cuenta</param>
-    public async static Task<ReadAllResponse<ContactDataModel>> ReadAll(int id)
+    public async static Task<ReadAllResponse<ContactModel>> ReadAll(string token)
     {
 
         // Crear HttpClient
@@ -107,7 +68,7 @@ public static class Contact
 
         // Crear HttpRequestMessage y agregar el encabezado
         var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        request.Headers.Add("token", $"{token}");
 
         try
         {
@@ -119,11 +80,11 @@ public static class Contact
 
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ContactDataModel>>(responseBody);
+            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ContactModel>>(responseBody);
             if (obj == null)
                 return new();
 
-            obj.Models = obj.Models.OrderBy(T => T.Name).ToList();
+            obj.Models = obj.Models.OrderBy(T => T.Nombre).ToList();
 
             return obj ?? new();
 
@@ -144,7 +105,7 @@ public static class Contact
     /// Actualiza la información de un contacto
     /// </summary>
     /// <param name="modelo">Nuevo modelo</param>
-    public async static Task<ResponseBase> Update(ContactDataModel modelo)
+    public async static Task<ResponseBase> Update(ContactModel modelo)
     {
 
         // Variables

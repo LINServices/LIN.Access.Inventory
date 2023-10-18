@@ -1,12 +1,4 @@
-﻿global using LIN.Modules;
-global using LIN.Types.Responses;
-global using Newtonsoft.Json;
-global using System;
-global using System.Net.Http;
-global using System.Text;
-global using System.Threading.Tasks;
-
-namespace LIN.Access.Inventory;
+﻿namespace LIN.Access.Inventory;
 
 
 public sealed class Session
@@ -14,6 +6,7 @@ public sealed class Session
 
 
     public string Token { get; set; }
+    public string ContactsToken { get; set; }
 
 
     /// <summary>
@@ -58,7 +51,7 @@ public sealed class Session
 
         // Validación de user
         var response = await Controllers.Profile.Login(user, password);
-
+        var responseContact = LIN.Access.Contacts.Session.LoginWith(user, password);
 
         if (response.Response != Responses.Success)
             return (null, response.Response);
@@ -70,6 +63,10 @@ public sealed class Session
 
         Instance.Token = response.Token;
         Instance.AccountToken = response.Model.LINAuthToken;
+
+        await responseContact;
+
+        Instance.ContactsToken = responseContact.Result.Sesion!.Token;
 
         return (Instance, Responses.Success);
 
