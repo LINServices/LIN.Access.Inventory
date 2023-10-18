@@ -1,5 +1,4 @@
-﻿using LIN.Access.Inventory;
-using LIN.Types.Contacts.Models;
+﻿using LIN.Types.Contacts.Models;
 
 namespace LIN.Access.Inventory.Controllers;
 
@@ -7,6 +6,50 @@ namespace LIN.Access.Inventory.Controllers;
 public static class Contact
 {
 
+
+
+    /// <summary>
+    /// Crea un nuevo contacto
+    /// </summary>
+    /// <param name="modelo">Modelo del contacto</param>
+    public async static Task<CreateResponse> Create(string token, ContactModel modelo)
+    {
+
+        var http = new HttpClient();
+        http.DefaultRequestHeaders.Add("token", token);
+
+        // Url del servicio /
+        string url = ApiServer.PathURL("contact/create");
+
+        // Objeto JSON
+        string json = JsonConvert.SerializeObject(modelo);
+
+
+        // Ejecución
+        try
+        {
+
+            // Contenido
+            StringContent content = new(json, Encoding.UTF8, "application/json");
+
+            // Envía la solicitud
+            var response = await http.PostAsync(url, content);
+
+            // Lee la respuesta del servidor
+            string responseContent = await response.Content.ReadAsStringAsync();
+
+            CreateResponse obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent) ?? new();
+
+            return obj ?? new();
+
+        }
+        catch
+        {
+        }
+
+        return new();
+
+    }
 
 
 

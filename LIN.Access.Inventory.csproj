@@ -17,7 +17,6 @@
     <ProjectReference Include="..\..\Tipos\LIN.Types.Contacts\LIN.Types.Contacts.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Inventory\LIN.Types.Inventory.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types\LIN.Types.csproj" />
-    <ProjectReference Include="..\LIN.Access.Contacts\LIN.Access.Contacts.csproj" />
   </ItemGroup>
 
 </Project>

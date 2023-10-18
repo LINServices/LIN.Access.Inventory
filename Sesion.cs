@@ -51,7 +51,6 @@ public sealed class Session
 
         // Validación de user
         var response = await Controllers.Profile.Login(user, password);
-        var responseContact = LIN.Access.Contacts.Session.LoginWith(user, password);
 
         if (response.Response != Responses.Success)
             return (null, response.Response);
@@ -62,11 +61,8 @@ public sealed class Session
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
-        Instance.AccountToken = response.Model.LINAuthToken;
-
-        await responseContact;
-
-        Instance.ContactsToken = responseContact.Result.Sesion!.Token;
+        Instance.AccountToken = response.Model.TokenCollection["identity"];
+        Instance.ContactsToken = response.Model.TokenCollection["contacts"];
 
         return (Instance, Responses.Success);
 
@@ -96,7 +92,8 @@ public sealed class Session
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
-        Instance.AccountToken = response.Model.LINAuthToken;
+        Instance.AccountToken = response.Model.TokenCollection["identity"];
+        Instance.ContactsToken = response.Model.TokenCollection["contacts"];
 
         return (Instance, Responses.Success);
 
