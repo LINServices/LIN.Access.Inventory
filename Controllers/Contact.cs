@@ -1,4 +1,6 @@
 ﻿using LIN.Types.Contacts.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LIN.Access.Inventory.Controllers;
 
@@ -22,7 +24,7 @@ public static class Contact
         string url = ApiServer.PathURL("contact/create");
 
         // Objeto JSON
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
 
         // Ejecución
@@ -38,7 +40,7 @@ public static class Contact
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            CreateResponse obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent) ?? new();
+            CreateResponse obj = JsonSerializer.Deserialize<CreateResponse>(responseContent) ?? new();
 
             return obj ?? new();
 
@@ -79,7 +81,7 @@ public static class Contact
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ContactModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<ContactModel>>(responseBody);
 
             return obj ?? new();
 
@@ -123,7 +125,7 @@ public static class Contact
 
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ContactModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<ContactModel>>(responseBody);
             if (obj == null)
                 return new();
 
@@ -155,7 +157,7 @@ public static class Contact
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("contact/update");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
 
         try
@@ -169,7 +171,7 @@ public static class Contact
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -206,7 +208,7 @@ public static class Contact
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -242,7 +244,7 @@ public static class Contact
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -283,7 +285,7 @@ public static class Contact
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<int>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<int>>(responseBody);
 
             return obj ?? new();
 

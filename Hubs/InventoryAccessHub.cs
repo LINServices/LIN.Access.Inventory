@@ -6,7 +6,7 @@ public class InventoryAccessHub
 
 
     /// <summary>
-    /// Conexion del HUB
+    /// Conexión del HUB
     /// </summary>
     private protected HubConnection? HubConnection { get; set; }
 

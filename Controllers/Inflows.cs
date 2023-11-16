@@ -18,7 +18,7 @@ public static class Inflows
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("inflow/create");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
         try
         {
@@ -31,7 +31,7 @@ public static class Inflows
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent);
+            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
 
             return obj ?? new();
 
@@ -72,7 +72,7 @@ public static class Inflows
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<InflowDataModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<InflowDataModel>>(responseBody);
 
             return obj ?? new();
 
@@ -115,7 +115,7 @@ public static class Inflows
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<InflowDataModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<InflowDataModel>>(responseBody);
 
             return obj ?? new();
 
@@ -158,7 +158,7 @@ public static class Inflows
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<List<byte>>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<List<byte>>>(responseBody);
 
             return obj ?? new();
 

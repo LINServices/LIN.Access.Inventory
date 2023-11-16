@@ -1,7 +1,7 @@
 ﻿global using LIN.Types.Inventory.Models;
 global using LIN.Types.Inventory.Enumerations;
 global using LIN.Types.Responses;
-global using Newtonsoft.Json;
+global using System.Text.Json;
 global using System;
 global using System.Net.Http;
 global using System.Text;

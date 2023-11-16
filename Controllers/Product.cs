@@ -20,7 +20,7 @@ public static class Product
         client.DefaultRequestHeaders.Add("token", $"{token}");
 
         string url = ApiServer.PathURL("product/create");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
         try
         {
@@ -33,7 +33,7 @@ public static class Product
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent);
+            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
 
             return obj ?? new();
 
@@ -75,7 +75,7 @@ public static class Product
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ProductDataTransfer>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<ProductDataTransfer>>(responseBody);
 
             if (obj == null)
                 return new();
@@ -130,7 +130,7 @@ public static class Product
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<ProductDataTransfer>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<ProductDataTransfer>>(responseBody);
 
             if (obj == null)
                 return new();
@@ -178,7 +178,7 @@ public static class Product
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ProductDataTransfer>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<ProductDataTransfer>>(responseBody);
 
             if (obj == null)
                 return new();
@@ -225,7 +225,7 @@ public static class Product
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ProductDataTransfer>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<ProductDataTransfer>>(responseBody);
 
             if (obj == null)
                 return new();
@@ -255,7 +255,7 @@ public static class Product
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("product/update");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
         client.DefaultRequestHeaders.Add("isBase", $"{isBase}");
 
@@ -270,7 +270,7 @@ public static class Product
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -295,7 +295,7 @@ public static class Product
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("product/update");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
 
         try
@@ -309,7 +309,7 @@ public static class Product
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -345,7 +345,7 @@ public static class Product
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 

@@ -17,7 +17,7 @@ public static class Inventories
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("inventory/create");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
 
         try
@@ -33,7 +33,7 @@ public static class Inventories
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent);
+            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
 
             return obj ?? new();
 
@@ -74,7 +74,7 @@ public static class Inventories
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<InventoryDataModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<InventoryDataModel>>(responseBody);
 
             return obj ?? new();
 
@@ -120,7 +120,7 @@ public static class Inventories
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -166,7 +166,7 @@ public static class Inventories
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -211,7 +211,7 @@ public static class Inventories
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("Inventory/access/newinvitacion");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
 
         try
@@ -228,7 +228,7 @@ public static class Inventories
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseContent);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
 
             return obj ?? new();
 
@@ -273,7 +273,7 @@ public static class Inventories
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<Notificacion>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<Notificacion>>(responseBody);
 
             return obj ?? new();
 
@@ -326,7 +326,7 @@ public static class Inventories
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<IntegrantDataModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<IntegrantDataModel>>(responseBody);
 
             return obj ?? new();
 
@@ -374,7 +374,7 @@ public static class Inventories
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ResponseBase>(responseBody);
+            var obj = JsonSerializer.Deserialize<ResponseBase>(responseBody);
 
             return obj ?? new();
 

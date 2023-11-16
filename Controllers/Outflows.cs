@@ -16,7 +16,7 @@ public static class Outflows
         var client = new HttpClient();
 
         string url = ApiServer.PathURL("outflow/create");
-        string json = JsonConvert.SerializeObject(modelo);
+        string json = JsonSerializer.Serialize(modelo);
 
         try
         {
@@ -29,7 +29,7 @@ public static class Outflows
             // Lee la respuesta del servidor
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent);
+            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
 
             return obj ?? new();
 
@@ -70,7 +70,7 @@ public static class Outflows
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<OutflowDataModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<OutflowDataModel>>(responseBody);
 
             return obj ?? new();
 
@@ -113,7 +113,7 @@ public static class Outflows
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<OutflowDataModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<OutflowDataModel>>(responseBody);
 
             return obj ?? new();
 
@@ -154,7 +154,7 @@ public static class Outflows
             string responseBody = await response.Content.ReadAsStringAsync();
 
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<List<byte>>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<List<byte>>>(responseBody);
 
             return obj ?? new();
 

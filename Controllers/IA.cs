@@ -18,7 +18,7 @@ public static class IA
         string url = ApiServer.PathURL("IA/image");
 
         // Crear HttpRequestMessage y agregar el encabezado
-        string json = JsonConvert.SerializeObject(image);
+        string json = JsonSerializer.Serialize(image);
 
         // Contenido
         StringContent content = new(json, Encoding.UTF8, "application/json");
@@ -32,7 +32,7 @@ public static class IA
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ProductCategories>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<ProductCategories>>(responseBody);
 
             return obj ?? new();
 
