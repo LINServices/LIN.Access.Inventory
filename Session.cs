@@ -18,7 +18,7 @@ public sealed class Session
     /// <summary>
     /// Información del usuario
     /// </summary>
-    public LIN.Types.Auth.Models.AccountModel Account { get; private set; } = new();
+    public LIN.Types.Cloud.Identity.Models.AccountModel Account { get; private set; } = new();
 
 
     public string AccountToken { get; set; }
@@ -28,7 +28,7 @@ public sealed class Session
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
-    public static bool IsAccountOpen { get => Instance.Account.ID > 0; }
+    public static bool IsAccountOpen { get => Instance.Account.Id > 0; }
 
 
 
@@ -50,7 +50,7 @@ public sealed class Session
         CloseSession();
 
         // Validación de user
-        var response = await Controllers.Profile.Login(user, password);
+        var response = await Controllers.Authentication.Login(user, password);
 
         if (response.Response != Responses.Success)
             return (null, response.Response);
@@ -80,7 +80,7 @@ public sealed class Session
         CloseSession();
 
         // Validación de user
-        var response = await Controllers.Profile.Login(token);
+        var response = await Controllers.Authentication.Login(token);
 
 
         if (response.Response != Responses.Success)

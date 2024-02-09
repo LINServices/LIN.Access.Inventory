@@ -1,6 +1,4 @@
-﻿using LIN.Access.Inventory;
-
-namespace LIN.Access.Inventory.Controllers;
+﻿namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Inflows
@@ -8,169 +6,101 @@ public static class Inflows
 
 
     /// <summary>
-    /// Crea una nueva entrada en un inventario
+    /// Crear un movimiento de entrada.
     /// </summary>
-    /// <param name="modelo">Modelo de la entrada</param>
-    public async static Task<CreateResponse> Create(InflowDataModel modelo)
+    /// <param name="modelo">Modelo.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<CreateResponse> Create(InflowDataModel modelo, string token)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inflow/create");
 
-        string url = ApiServer.PathURL("inflow/create");
-        string json = JsonSerializer.Serialize(modelo);
+        // Headers.
+        client.AddHeader("token", token);
 
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
+        // Resultado.
+        var Content = await client.Post<CreateResponse>(modelo);
 
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
 
 
     /// <summary>
-    /// Obtiene una entrada y sus detalles por medio del ID
+    /// Obtiene una entrada y sus detalles por medio del Id.
     /// </summary>
-    /// <param name="id">ID de la entrada</param>
-    public async static Task<ReadOneResponse<InflowDataModel>> Read(int id)
+    /// <param name="id">Id de la entrada.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<ReadOneResponse<InflowDataModel>> Read(int id, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inflow/read");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("inflow/read");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<InflowDataModel>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content;
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<InflowDataModel>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
 
 
 
     /// <summary>
-    /// Obtiene la lista de entradas asociadas a un inventario
+    /// Obtiene la lista de entradas asociadas a un inventario.
     /// </summary>
-    /// <param name="id">ID del inventario</param>
-    public async static Task<ReadAllResponse<InflowDataModel>> ReadAll(int id)
+    /// <param name="id">Id del inventario.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<ReadAllResponse<InflowDataModel>> ReadAll(int id, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inflow/read/all");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("inflow/read/all");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<InflowDataModel>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content;
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<InflowDataModel>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
 
 
 
-
+    /// <summary>
+    /// Informe mensual.
+    /// </summary>
+    [Obsolete]
     public async static Task<ReadOneResponse<List<byte>>> InformeMonth(int contextUser, int id, int mes, int año)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inflow/info");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("inflow/info");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("month", $"{mes}");
+        client.AddHeader("year", $"{año}");
+        client.AddHeader("contextUser", $"{contextUser}");
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
-        request.Headers.Add("month", $"{mes}");
-        request.Headers.Add("year", $"{año}");
-        request.Headers.Add("contextUser", $"{contextUser}");
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<List<byte>>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content; 
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<List<byte>>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
 
 

@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Tipos\LIN.Modules\LIN.Modules.csproj" />
-    <ProjectReference Include="..\..\Tipos\LIN.Types.Auth\LIN.Types.Auth.csproj" />
+    <ProjectReference Include="..\..\Tipos\LIN.Types.Cloud.Identity\LIN.Types.Cloud.Identity.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Contacts\LIN.Types.Contacts.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Inventory\LIN.Types.Inventory.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types\LIN.Types.csproj" />

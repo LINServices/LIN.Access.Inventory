@@ -1,5 +1,6 @@
 ﻿global using LIN.Types.Inventory.Models;
 global using LIN.Types.Inventory.Enumerations;
+global using LIN.Types.Inventory.Transient;
 global using LIN.Types.Responses;
 global using System.Text.Json;
 global using System;
@@ -9,6 +10,7 @@ global using System.Threading.Tasks;
 global using LIN.Types.Enumerations;
 global using Microsoft.AspNetCore.SignalR.Client;
 global using LIN.Modules;
-global using LIN.Types.Auth.Models;
-global using LIN.Types.Auth.Abstracts;
-global using LIN.Types.Auth.Enumerations;
+global using LIN.Types.Cloud.Identity.Models;
+global using LIN.Types.Cloud.Identity.Abstracts;
+global using LIN.Types.Cloud.Identity.Enumerations;
+global using LIN.Access.Inventory.Services;

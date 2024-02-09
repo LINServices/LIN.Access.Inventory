@@ -15,66 +15,16 @@ public class InventoryAccessHub
     /// <summary>
     /// Evento ON
     /// </summary>
-    public event EventHandler<ProductDataTransfer>? On;
+    public event EventHandler<CommandModel>? On;
 
 
-
-    /// <summary>
-    /// Evento ON
-    /// </summary>
-    public event EventHandler<ProductDataTransfer>? OnUpdate;
-
-
-
-    /// <summary>
-    /// Evento ON
-    /// </summary>
-    public event EventHandler<InflowDataModel>? OnReciveInflow;
-
-
-    /// <summary>
-    /// Evento ON
-    /// </summary>
-    public event EventHandler<int>? OnDeleteProducto;
-
-
-    /// <summary>
-    /// Evento ON
-    /// </summary>
-    public event EventHandler<OutflowDataModel>? OnReciveOutflow;
 
 
 
 
     public void Dispose()
     {
-        _= HubConnection?.DisposeAsync();
-    }
-
-
-    /// <summary>
-    /// Envía el evento
-    /// </summary>
-    /// <param name="contenido"></param>
-    private protected void SendEvent(ProductDataTransfer contenido)
-    {
-        On?.Invoke(null, contenido);
-    }
-
-
-    private protected void SendUpdate(ProductDataTransfer contenido)
-    {
-        OnUpdate?.Invoke(null, contenido);
-    }
-
-
-    /// <summary>
-    /// Envía el evento
-    /// </summary>
-    /// <param name="contenido"></param>
-    private protected void SendEvent(int contenido)
-    {
-        OnDeleteProducto?.Invoke(null, contenido);
+        _ = HubConnection?.DisposeAsync();
     }
 
 
@@ -84,38 +34,32 @@ public class InventoryAccessHub
     /// Envía el evento
     /// </summary>
     /// <param name="contenido"></param>
-    private protected void SendEvent(InflowDataModel contenido)
+    private protected void SendEvent(CommandModel cm)
     {
-        OnReciveInflow?.Invoke(null, contenido);
-    }
-
-
-    /// <summary>
-    /// Envía el evento
-    /// </summary>
-    /// <param name="contenido"></param>
-    private protected void SendEvent(OutflowDataModel contenido)
-    {
-        OnReciveOutflow?.Invoke(null, contenido);
+        On?.Invoke(null, cm);
     }
 
 
 
     /// <summary>
-    /// ID del inventario
+    /// Id del inventario
     /// </summary>
     public int Inventario { get; set; }
 
 
+    public string Token { get; set; }
+    public DeviceModel Device { get; set; }
 
 
     /// <summary>
     /// Nuevo HUB de productos
     /// </summary>
-    /// <param name="inventario">ID del inventario</param>
-    public InventoryAccessHub(int inventario)
+    /// <param name="inventario">Id del inventario</param>
+    public InventoryAccessHub(string token, int inventario, DeviceModel device)
     {
+        this.Token = token;
         Inventario = inventario;
+        Device = device;
         Suscribe();
     }
 
@@ -130,35 +74,18 @@ public class InventoryAccessHub
         {
             // Crea la conexion al HUB
             HubConnection = new HubConnectionBuilder()
-                 .WithUrl(ApiServer.PathURL("realtime/inventory"))
+                 .WithUrl(Service.PathURL("realtime/inventory"))
                  .WithAutomaticReconnect()
                  .Build();
 
-
             // Evento cuando algo cambie
-            HubConnection.On<ProductDataTransfer>("SendProduct", SendEvent);
-
-
-            // Evento cuando algo cambie
-            HubConnection.On<ProductDataTransfer>("UpdateProduct", SendUpdate);
-
-
-            // Evento cuando algo cambie
-            HubConnection.On<InflowDataModel>("SendInflow", SendEvent);
-
-            // Evento cuando algo cambie
-            HubConnection.On<int>("DeleteProducto", SendEvent);
-
-
-            // Evento cuando algo cambie
-            HubConnection.On<OutflowDataModel>("SendOutflow", SendEvent);
-
+            HubConnection.On<CommandModel>("#command", (i) => SendEvent(i));
 
             // Inicia la conexion
             await HubConnection.StartAsync();
 
             // Suscribe al grupo
-            await HubConnection.InvokeAsync("JoinGroup", $"{Inventario}");
+            await HubConnection.InvokeAsync("Join", Token, Device);
         }
         catch
         {
@@ -169,16 +96,14 @@ public class InventoryAccessHub
 
 
 
-    /// <summary>
-    /// Envía la actualizacion de un modelo
-    /// </summary>
-    /// <param name="inventario">ID del inventario</param>
-    /// <param name="productID">ID del nuevo producto</param>
-    public async void SendAddModel(int inventario, int productID)
+
+
+
+    public async void SendCommand(CommandModel command)
     {
         try
         {
-            await HubConnection!.InvokeAsync("AddProduct", $"{inventario}", productID);
+            await HubConnection!.InvokeAsync("SendCommand", command);
         }
         catch
         {
@@ -188,11 +113,11 @@ public class InventoryAccessHub
     }
 
 
-    public async void DeleteProducto(int inventario, int productID)
+    public async void SendToDevice(string device, CommandModel command)
     {
         try
         {
-            await HubConnection!.InvokeAsync("RemoveProducto", $"{inventario}", productID);
+            await HubConnection!.InvokeAsync("SendToDevice", device, command);
         }
         catch
         {
@@ -202,53 +127,6 @@ public class InventoryAccessHub
     }
 
 
-
-    public async void UpdateProduct(int inventario, int productID)
-    {
-        try
-        {
-            await HubConnection!.InvokeAsync("UpdateProduct", $"{inventario}", productID);
-        }
-        catch
-        {
-
-        }
-
-    }
-
-
-
-
-
-    /// <summary>
-    /// Envía la actualizacion de una entrada
-    /// </summary>
-    public async void SendAddModelInflow(int inventario, int inflowID)
-    {
-        try
-        {
-            await HubConnection!.InvokeAsync("AddEntrada", $"{inventario}", inflowID);
-        }
-        catch
-        {
-
-        }
-
-    }
-
-
-    public async void SendAddModelOutflow(int inventario, int outflowID)
-    {
-        try
-        {
-            await HubConnection!.InvokeAsync("AddSalida", $"{inventario}", outflowID);
-        }
-        catch
-        {
-
-        }
-
-    }
 
 
 

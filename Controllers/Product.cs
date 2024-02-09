@@ -1,6 +1,4 @@
-﻿using LIN.Access.Inventory;
-
-namespace LIN.Access.Inventory.Controllers;
+﻿namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Product
@@ -11,38 +9,20 @@ public static class Product
     /// Crea un nuevo producto
     /// </summary>
     /// <param name="modelo">Modelo</param>
-    public async static Task<CreateResponse> Create(ProductDataTransfer modelo, string token)
+    public async static Task<CreateResponse> Create(ProductModel modelo, string token)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/create");
 
-        client.DefaultRequestHeaders.Add("token", $"{token}");
+        // Headers.
+        client.AddHeader("token", token);
 
-        string url = ApiServer.PathURL("product/create");
-        string json = JsonSerializer.Serialize(modelo);
+        // Resultado.
+        var Content = await client.Post<CreateResponse>();
 
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -51,235 +31,73 @@ public static class Product
     /// <summary>
     /// Obtiene la lista de productos asociados a un inventario
     /// </summary>
-    /// <param name="id">ID del inventario</param>
-    public async static Task<ReadAllResponse<ProductDataTransfer>> ReadAll(int id, string token)
+    /// <param name="id">Id del inventario</param>
+    public async static Task<ReadAllResponse<ProductModel>> ReadAll(int id, string token)
     {
 
-        // Crear HttpClient
-        var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/read/all");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("product/read/all");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
-        request.Headers.Add("token", $"{token}");
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<ProductModel>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content;
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<ProductDataTransfer>>(responseBody);
-
-            if (obj == null)
-                return new();
-
-            obj.Models = obj.Models.OrderBy(T => T.Name).ToList();
-
-            return obj ?? new();
-
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {ex.Message}");
-        }
-
-
-        return new();
     }
 
 
 
-    /// <summary>
-    /// Obtiene la lista de plantillas de productos
-    /// </summary>
-    /// <param name="template">Parámetro de búsqueda</param>
-    public async static Task<ReadAllResponse<ProductDataTransfer>> ReadTemplates(string template)
-    {
-
-        // Crear HttpClient
-        var httpClient = new HttpClient();
-
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("product/read/all/templates");
-
-        url = Web.AddParameters(url, new()
-        {
-            { "template", template }
-        });
-
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-
-
-
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<ProductDataTransfer>>(responseBody);
-
-            if (obj == null)
-                return new();
-
-            obj.Models = obj.Models.OrderBy(T => T.Name).ToList();
-
-            return obj ?? new();
-
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {ex.Message}");
-        }
-
-
-        return new();
-    }
-
-
+ 
 
     /// <summary>
-    /// Obtiene un producto por medio del ID
+    /// Obtiene un producto por medio del Id
     /// </summary>
-    /// <param name="id">ID del producto</param>
-    public async static Task<ReadOneResponse<ProductDataTransfer>> Read(int id)
+    /// <param name="id">Id del producto</param>
+    public async static Task<ReadOneResponse<ProductModel>> Read(int id, string token)
     {
 
-        // Crear HttpClient
-        var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/read");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("product/read");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<ProductModel>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content;
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<ProductDataTransfer>>(responseBody);
-
-            if (obj == null)
-                return new();
-
-            return obj ?? new();
-
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {ex.Message}");
-        }
-
-
-        return new();
     }
 
 
 
 
     /// <summary>
-    /// Obtiene un producto por medio del ID de detalle de producto
+    /// Obtiene un producto por medio del Id de detalle de producto
     /// </summary>
-    /// <param name="id">ID del detalle</param>
-    public async static Task<ReadOneResponse<ProductDataTransfer>> ReadOneByDetail(int id)
+    /// <param name="id">Id del detalle</param>
+    public async static Task<ReadOneResponse<ProductModel>> ReadOneByDetail(int id, string token)
     {
 
-        // Crear HttpClient
-        var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/readByDetail");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("product/readbydetail");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<ProductModel>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<ProductDataTransfer>>(responseBody);
-
-            if (obj == null)
-                return new();
-
-            return obj ?? new();
-
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {ex.Message}");
-        }
-
-
-        return new();
-    }
-
-
-
-    /// <summary>
-    /// Actualiza la informacion de un producto
-    /// </summary>
-    public async static Task<ResponseBase> UpdateAsync(ProductDataTransfer modelo, bool isBase)
-    {
-
-        // Variables
-        var client = new HttpClient();
-
-        string url = ApiServer.PathURL("product/update");
-        string json = JsonSerializer.Serialize(modelo);
-
-        client.DefaultRequestHeaders.Add("isBase", $"{isBase}");
-
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PatchAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -288,37 +106,43 @@ public static class Product
     /// <summary>
     /// Actualiza la informacion de un producto
     /// </summary>
-    public async static Task<ResponseBase> Update(ProductDataTransfer modelo)
+    public async static Task<ResponseBase> UpdateAsync(ProductModel modelo, bool isBase, string token)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/update");
 
-        string url = ApiServer.PathURL("product/update");
-        string json = JsonSerializer.Serialize(modelo);
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("isBase", $"{isBase}");
+
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
+
+        // Retornar.
+        return Content;
+
+    }
 
 
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
 
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PutAsync(url, content);
+    /// <summary>
+    /// Actualiza la informacion de un producto
+    /// </summary>
+    public async static Task<ResponseBase> Update(ProductModel modelo, string token)
+    {
 
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/update");
 
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
+        // Headers.
+        client.AddHeader("token", token);
 
-            return obj ?? new();
+        // Resultado.
+        var Content = await client.Put<ResponseBase>(modelo);
 
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -327,34 +151,21 @@ public static class Product
 
 
 
-    public async static Task<ResponseBase> Delete(int id)
+    public async static Task<ResponseBase> Delete(int id, string token)
     {
 
-        // Variables
-        var client = new HttpClient();
-        client.DefaultRequestHeaders.Add("id", $"{id}");
+        // Cliente HTTP.
+        Client client = Service.GetClient("product/detele");
 
-        string url = ApiServer.PathURL("product/delete");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
+        // Resultado.
+        var Content = await client.Delete<ResponseBase>();
 
-        try
-        {
-            // Envía la solicitud
-            HttpResponseMessage response = await client.DeleteAsync(url);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 

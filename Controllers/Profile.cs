@@ -8,97 +8,21 @@ public static class Profile
     /// <summary>
     /// Obtiene los datos de una cuenta especifica
     /// </summary>
-    /// <param name="id">ID de la cuenta</param>
-    public async static Task<ReadOneResponse<ProfileModel>> ReadOne(int id)
+    /// <param name="id">Id de la cuenta</param>
+    public async static Task<ReadAllResponse<DeviceModel>> ReadDevices(string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("devices");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("profile/read/id");
+        // Headers.
+        client.AddHeader("token", token);
 
-        url = Web.AddParameters(url, new(){
-            {"id",id.ToString() }
-        });
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<DeviceModel>>();
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<ProfileModel>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-    }
-
-
-
-
-    /// <summary>
-    /// Inicia una sesión
-    /// </summary>
-    public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string cuenta, string password)
-    {
-
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
-
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("profile/login");
-
-        url = Web.AddParameters(url, new()
-        {
-            {"user",cuenta },
-            {"password",password }
-        });
-
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<AuthModel<ProfileModel>>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        // Retornar.
+        return Content;
 
     }
 
@@ -106,101 +30,49 @@ public static class Profile
 
 
     /// <summary>
-    /// Inicia una sesión por medio de un token
+    /// Obtiene los datos de una cuenta especifica
     /// </summary>
-    public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string token)
+    /// <param name="id">Id de la cuenta</param>
+    public async static Task<ReadOneResponse<ProfileModel>> ReadOne(int id, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("profile/read/id");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("profile/LoginWithToken");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
 
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<ProfileModel>>();
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-        request.Headers.Add("token", $"{token}");
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<AuthModel<ProfileModel>>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        // Retornar.
+        return Content;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
     /// <summary>
     /// Obtiene la cantidad de las ventas en un plazo determinado
     /// </summary>
-    /// <param name="user">ID del usuario</param>
+    /// <param name="user">Id del usuario</param>
     /// <param name="days">Dias atras</param>
     public async static Task<ReadOneResponse<HomeDto>> TotalSales(int user, int days)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("profile/read/id");
 
-        string url = ApiServer.PathURL("Inventory/home");
+        // Headers.
+        client.AddHeader("id", user);
+        client.AddHeader("days", days);
 
-        client.DefaultRequestHeaders.Add("id", $"{user}");
-        client.DefaultRequestHeaders.Add("days", $"{days}");
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<HomeDto>>();
 
-        try
-        {
-            // Envía la solicitud
-            HttpResponseMessage response = await client.GetAsync(url);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<HomeDto>>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -213,31 +85,17 @@ public static class Profile
     public async static Task<ReadOneResponse<decimal>> ValueInventorys(int user)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/valuation");
 
-        string url = ApiServer.PathURL("Inventory/valuation");
+        // Headers.
+        client.AddHeader("id", user);
 
-        client.DefaultRequestHeaders.Add("id", $"{user}");
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<decimal>>();
 
-        try
-        {
-            // Envía la solicitud
-            HttpResponseMessage response = await client.GetAsync(url);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<decimal>>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -247,52 +105,23 @@ public static class Profile
 
 
     /// <summary>
-    /// Busqueda de usuarios por medio de su ID
+    /// Busqueda de usuarios por medio de su Id
     /// </summary>
     public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearhByPattern(string pattern, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("profile/search");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("Bridget/search");
+        // Headers.
+        client.AddParameter("pattern", pattern);
+        client.AddHeader("token", token);
 
-        url = Web.AddParameters(url, new()
-        {
-            { "userName", pattern }
-        }
-        );
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<SessionModel<ProfileModel>>>();
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("token", $"{token}");
-
-        try
-        {
-            // Hacer la solicitud GET
-            var response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<SessionModel<ProfileModel>>>(responseBody) ?? new();
-
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        // Retornar.
+        return Content;
 
     }
 

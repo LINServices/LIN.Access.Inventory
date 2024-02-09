@@ -6,43 +6,24 @@ public static class Inventories
 
 
     /// <summary>
-    /// Crea un nuevo inventario
+    /// Crear inventario.
     /// </summary>
-    /// <param name="modelo">Modelo del inventario</param>
-    /// <param name="id">ID del usuario</param>
-    public async static Task<CreateResponse> Create(InventoryDataModel modelo, int id)
+    /// <param name="modelo">Modelo.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<CreateResponse> Create(InventoryDataModel modelo, string token)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/create");
 
-        string url = ApiServer.PathURL("inventory/create");
-        string json = JsonSerializer.Serialize(modelo);
+        // Headers.
+        client.AddHeader("token", token);
 
+        // Resultado.
+        var Content = await client.Post<CreateResponse>(modelo);
 
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-            content.Headers.Add("userID", $"{id}");
-
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -51,42 +32,22 @@ public static class Inventories
     /// <summary>
     /// Obtiene los inventarios que están asociados a una cuenta
     /// </summary>
-    /// <param name="id">ID de la cuenta</param>
+    /// <param name="id">Id de la cuenta</param>
     public async static Task<ReadAllResponse<InventoryDataModel>> ReadAll(string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/read/all");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("inventory/read/all");
+        // Headers.
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("token", $"{token}");
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<InventoryDataModel>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content;
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<InventoryDataModel>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
 
 
@@ -94,42 +55,23 @@ public static class Inventories
     /// <summary>
     /// Cambia el estado de un usuario en un inventario
     /// </summary>
-    /// <param name="id">ID del usuario</param>
+    /// <param name="id">Id del usuario</param>
     /// <param name="estado">Nuevo estado</param>
     public async static Task<ResponseBase> UpdateState(int id, InventoryAccessState estado)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/access/update/state");
 
-        string url = ApiServer.PathURL("Inventory/access/update/state");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("estado", (int)estado);
 
+        // Resultado.
+        var Content = await client.Put<ResponseBase>();
 
-        try
-        {
-            // Contenido
-            StringContent content = new("", Encoding.UTF8, "application/json");
-
-
-            content.Headers.Add("id", $"{id}");
-            content.Headers.Add("estado", $"{(int)estado}");
-
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PutAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
@@ -138,159 +80,49 @@ public static class Inventories
     /// <summary>
     /// Actualiza el rol de un usuario en un inventario
     /// </summary>
-    /// <param name="id">ID del inventario</param>
+    /// <param name="id">Id del inventario</param>
     /// <param name="rol">Nuevo rol</param>
     /// <param name="token">Token de acceso</param>
     public async static Task<ResponseBase> UpdateRol(int id, InventoryRoles rol, string token)
     {
 
-        // Variables
-        var client = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/update/rol");
 
-        string url = ApiServer.PathURL("Inventory/update/rol");
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("newRol", (int)rol);
+        client.AddHeader("token", token);
 
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
 
-        try
-        {
-            // Contenido
-            StringContent content = new("", Encoding.UTF8, "application/json");
-
-
-            content.Headers.Add("accessID", $"{id}");
-            content.Headers.Add("newRol", $"{(int)rol}");
-            content.Headers.Add("token", $"{token}");
-
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PatchAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
+        // Retornar.
+        return Content;
 
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /// <summary>
-    /// Nuevas invitaciones para un inventario
-    /// </summary>
-    /// <param name="modelo">Modelo del inventario con los nuevos accesos</param>
-    /// <param name="token">Token de sesion</param>
-    public async static Task<ResponseBase> GenerateInvitaciones(InventoryDataModel modelo, string token)
-    {
-
-        // Variables
-        var client = new HttpClient();
-
-        string url = ApiServer.PathURL("Inventory/access/newinvitacion");
-        string json = JsonSerializer.Serialize(modelo);
-
-
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-
-            content.Headers.Add("token", $"{token}");
-
-            // Envía la solicitud
-            HttpResponseMessage response = await client.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            string responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch
-        {
-        }
-
-        return new();
-
-    }
-
-
-
-
-
-
-
-    /// <summary>
-    /// Obtiene las invitaciones que un usuario tiena
+    /// Obtiene las invitaciones de un usuario.
     /// /// </summary>
-    /// <param name="id">ID de la cuenta</param>
-    public async static Task<ReadAllResponse<Notificacion>> ReadNotifications(int id)
+    public async static Task<ReadAllResponse<Notificacion>> ReadNotifications(string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/access/read/all");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("Inventory/access/read/all");
+        // Headers.
+        client.AddHeader("token", token);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("id", $"{id}");
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<Notificacion>>();
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+        // Retornar.
+        return Content;
 
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<Notificacion>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
-
-
-
-
 
 
 
@@ -298,47 +130,25 @@ public static class Inventories
     /// <summary>
     /// Obtiene los inregrantes de un inventario
     /// </summary>
-    /// <param name="inv">ID del inventario</param>
-    /// <param name="user">ID del usuario que esta consultando</param>
-    public async static Task<ReadAllResponse<IntegrantDataModel>> GetIntegrants(int inv, int user, string token)
+    /// <param name="inv">Id del inventario</param>
+    /// <param name="user">Id del usuario que esta consultando</param>
+    public async static Task<ReadAllResponse<IntegrantDataModel>> GetIntegrants(int inv, string tokenLocal, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/access/members");
 
+        // Headers.
+        client.AddHeader("token", tokenLocal);
+        client.AddHeader("tokenIdentity", token);
+        client.AddHeader("inventario", inv);
 
-        httpClient.DefaultRequestHeaders.Add("token", token);
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("Inventory/access/members");
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<IntegrantDataModel>>();
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("inventario", $"{inv}");
-        request.Headers.Add("usuario", $"{user}");
+        // Retornar.
+        return Content;
 
-
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<IntegrantDataModel>>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
 
 
@@ -346,47 +156,26 @@ public static class Inventories
     /// <summary>
     /// Elimina a alguien de el inventario
     /// </summary>
-    /// <param name="inv">ID del inventario</param>
-    /// <param name="user">ID del usuario que va a ser eliminado</param>
-    /// <param name="inv">ID del usuario que va a realizar la accion</param>
-    public async static Task<ResponseBase> DeleteSomeOne(int inv, int user, int me)
+    /// <param name="inv">Id del inventario</param>
+    /// <param name="user">Id del usuario que va a ser eliminado</param>
+    /// <param name="inv">Id del usuario que va a realizar la accion</param>
+    public async static Task<ResponseBase> DeleteSomeOne(int inv, int user, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/access/delete/one");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("Inventory/access/delete/One");
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("inventario", inv);
+        client.AddHeader("usuario", user);
 
-        // Crear HttpRequestMessage y agregar el encabezado
-        var request = new HttpRequestMessage(HttpMethod.Delete, url);
-        request.Headers.Add("inventario", $"{inv}");
-        request.Headers.Add("usuario", $"{user}");
-        request.Headers.Add("me", $"{me}");
+        // Resultado.
+        var Content = await client.Delete<ResponseBase>();
 
+        // Retornar.
+        return Content;
 
-        try
-        {
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-
-            var obj = JsonSerializer.Deserialize<ResponseBase>(responseBody);
-
-            return obj ?? new();
-
-
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
     }
 
 
