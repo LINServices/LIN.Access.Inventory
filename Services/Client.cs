@@ -166,7 +166,6 @@ internal class Client : HttpClient
         }
         catch (Exception) 
         {
-            var s = "";
         }
 
         return new();

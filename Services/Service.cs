@@ -8,7 +8,7 @@ internal static class Service
     /// <summary>
     /// Url base.
     /// </summary>
-    private static string DefaultUrl { get; set; } = "http://api.inventory.linapps.co";
+    private static string DefaultUrl { get; set; } = "http://api.inventory.linapps.co/";
 
 
 

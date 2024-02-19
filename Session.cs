@@ -125,6 +125,9 @@ public sealed class Session
 
     private Session()
     {
+        Token = string.Empty;
+        ContactsToken = string.Empty;
+        AccountToken = string.Empty;
         Informacion = new();
     }
 

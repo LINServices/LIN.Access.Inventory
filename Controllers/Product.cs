@@ -19,7 +19,7 @@ public static class Product
         client.AddHeader("token", token);
 
         // Resultado.
-        var Content = await client.Post<CreateResponse>();
+        var Content = await client.Post<CreateResponse>(modelo);
 
         // Retornar.
         return Content;
