@@ -13,4 +13,4 @@ global using LIN.Modules;
 global using LIN.Types.Cloud.Identity.Models;
 global using LIN.Types.Cloud.Identity.Abstracts;
 global using LIN.Types.Cloud.Identity.Enumerations;
-global using LIN.Access.Inventory.Services;
+global using LIN.Access.Services;

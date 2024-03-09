@@ -33,7 +33,7 @@ public static class Outflows
     /// Obtiene una salida por medio del Id
     /// </summary>
     /// <param name="id">Id de la salida</param>
-    public async static Task<ReadOneResponse<OutflowDataModel>> Read(int id, string token)
+    public async static Task<ReadOneResponse<OutflowDataModel>> Read(int id, string token, bool details = false)
     {
 
         // Cliente HTTP.
@@ -42,6 +42,7 @@ public static class Outflows
         // Headers.
         client.AddHeader("id", id);
         client.AddHeader("token", token);
+        client.AddHeader("mascara", details.ToString());
 
         // Resultado.
         var Content = await client.Get<ReadOneResponse<OutflowDataModel>>();

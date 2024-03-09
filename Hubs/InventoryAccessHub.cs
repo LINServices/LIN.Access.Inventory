@@ -51,6 +51,7 @@ public class InventoryAccessHub
     public DeviceModel Device { get; set; }
 
 
+
     /// <summary>
     /// Nuevo HUB de productos
     /// </summary>
@@ -74,7 +75,7 @@ public class InventoryAccessHub
         {
             // Crea la conexion al HUB
             HubConnection = new HubConnectionBuilder()
-                 .WithUrl(Service.PathURL("realtime/inventory"))
+                 .WithUrl(Service._Service.PathURL("Realtime/inventory"))
                  .WithAutomaticReconnect()
                  .Build();
 
@@ -99,17 +100,15 @@ public class InventoryAccessHub
 
 
 
-    public async void SendCommand(CommandModel command)
+    public async Task SendCommand(CommandModel command)
     {
         try
         {
-            await HubConnection!.InvokeAsync("SendCommand", command);
+            await HubConnection!.InvokeAsync("SendCommand", Token, command);
         }
         catch
         {
-
         }
-
     }
 
 

@@ -34,7 +34,7 @@ public static class Inflows
     /// </summary>
     /// <param name="id">Id de la entrada.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<InflowDataModel>> Read(int id, string token)
+    public async static Task<ReadOneResponse<InflowDataModel>> Read(int id, string token, bool details = false)
     {
 
         // Cliente HTTP.
@@ -43,6 +43,7 @@ public static class Inflows
         // Headers.
         client.AddHeader("id", id);
         client.AddHeader("token", token);
+        client.AddHeader("mascara", details.ToString());
 
         // Resultado.
         var Content = await client.Get<ReadOneResponse<InflowDataModel>>();
