@@ -73,24 +73,44 @@ public class InventoryAccessHub
     {
         try
         {
-            // Crea la conexion al HUB
+            // Crea la conexión al HUB
             HubConnection = new HubConnectionBuilder()
                  .WithUrl(Service._Service.PathURL("Realtime/inventory"))
                  .WithAutomaticReconnect()
                  .Build();
 
             // Evento cuando algo cambie
-            HubConnection.On<CommandModel>("#command", (i) => SendEvent(i));
+            HubConnection.On<CommandModel>("#command", SendEvent);
 
-            // Inicia la conexion
+            // Inicia la conexión.
             await HubConnection.StartAsync();
 
             // Suscribe al grupo
             await HubConnection.InvokeAsync("Join", Token, Device);
         }
-        catch
+        catch (Exception)
+        {
+        }
+
+    }
+
+
+    public async Task JoinInventory(int inventory)
+    {
+        try
         {
 
+            if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
+            {
+                return;
+            }
+
+            // Suscribe al grupo
+            await HubConnection.InvokeAsync("JoinInventory", Token, inventory);
+
+        }
+        catch (Exception)
+        {
         }
 
     }

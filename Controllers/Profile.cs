@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Inventory.Controllers;
+﻿using LIN.Types.Emma.Models;
+
+namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Profile
@@ -125,6 +127,27 @@ public static class Profile
 
     }
 
+
+
+
+
+    /// <summary>
+    /// Preguntar a Emma.
+    /// </summary>
+    /// <param name="token">Preguntar a Emma.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
+    {
+
+        // Cliente
+        Client client = Service.GetClient($"emma");
+
+        // Headers.
+        client.AddHeader("tokenAuth", token);
+
+        return await client.Post<ReadOneResponse<ResponseIAModel>>(modelo);
+
+    }
 
 
 

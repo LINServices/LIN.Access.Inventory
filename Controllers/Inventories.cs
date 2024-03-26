@@ -140,7 +140,7 @@ public static class Inventories
 
         // Headers.
         client.AddHeader("token", tokenLocal);
-        client.AddHeader("tokenIdentity", token);
+        client.AddHeader("tokenAuth", token);
         client.AddHeader("inventario", inv);
 
         // Resultado.
