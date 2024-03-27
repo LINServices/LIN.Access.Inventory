@@ -1,7 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Hubs;
 
 
-public class InventoryAccessHub
+public class InventoryAccessHub : IDisposable
 {
 
 
@@ -13,61 +13,52 @@ public class InventoryAccessHub
 
 
     /// <summary>
-    /// Evento ON
+    /// Evento al recibir un comando.
     /// </summary>
     public event EventHandler<CommandModel>? On;
 
 
 
-
-
-
-    public void Dispose()
-    {
-        _ = HubConnection?.DisposeAsync();
-    }
-
-
-
-
     /// <summary>
-    /// Envía el evento
+    /// Token de acceso.
     /// </summary>
-    /// <param name="contenido"></param>
-    private protected void SendEvent(CommandModel cm)
-    {
-        On?.Invoke(null, cm);
-    }
-
-
-
-    /// <summary>
-    /// Id del inventario
-    /// </summary>
-    public int Inventario { get; set; }
-
-
     public string Token { get; set; }
+
+
+
+    /// <summary>
+    /// Modelo del dispositivo.
+    /// </summary>
     public DeviceModel Device { get; set; }
 
 
 
+
     /// <summary>
-    /// Nuevo HUB de productos
+    /// Nuevo Hub de ViewON.
     /// </summary>
-    /// <param name="inventario">Id del inventario</param>
-    public InventoryAccessHub(string token, int inventario, DeviceModel device)
+    /// <param name="token">Token de acceso.</param>
+    /// <param name="device">Modelo del dispositivo.</param>
+    public InventoryAccessHub(string token, DeviceModel device)
     {
-        this.Token = token;
-        Inventario = inventario;
+        Token = token;
         Device = device;
         Suscribe();
     }
 
 
 
+
     /// <summary>
-    /// Suscribe
+    /// Enviar el evento.
+    /// </summary>
+    /// <param name="cm">Comando.</param>
+    private protected void SendEvent(CommandModel cm) => On?.Invoke(null, cm);
+
+
+
+    /// <summary>
+    /// Iniciar el Hub.
     /// </summary>
     private async void Suscribe()
     {
@@ -91,20 +82,23 @@ public class InventoryAccessHub
         catch (Exception)
         {
         }
-
     }
 
 
+
+    /// <summary>
+    /// Unir a un grupo de inventario.
+    /// </summary>
+    /// <param name="inventory">Id del inventario.</param>
     public async Task JoinInventory(int inventory)
     {
         try
         {
 
+            // Validar estado del Hub.
             if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
-            {
                 return;
-            }
-
+            
             // Suscribe al grupo
             await HubConnection.InvokeAsync("JoinInventory", Token, inventory);
 
@@ -117,17 +111,19 @@ public class InventoryAccessHub
 
 
 
-
+    /// <summary>
+    /// Enviar notificación de inventario a los integrantes que aun no han aceptado.
+    /// </summary>
+    /// <param name="inventory">Id del inventario.</param>
     public async Task Notification(int inventory)
     {
         try
         {
 
+            // Validar hub.
             if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
-            {
                 return;
-            }
-
+            
             // Suscribe al grupo
             await HubConnection.InvokeAsync("Notification", Token, inventory);
 
@@ -140,37 +136,48 @@ public class InventoryAccessHub
 
 
 
-
-
-
+    /// <summary>
+    /// Enviar un comando.
+    /// </summary>
+    /// <param name="command">Modelo del comando.</param>
     public async Task SendCommand(CommandModel command)
     {
         try
         {
             await HubConnection!.InvokeAsync("SendCommand", Token, command);
         }
-        catch
+        catch (Exception)
         {
         }
     }
 
 
+
+    /// <summary>
+    /// Enviar comando a un dispositivo especifico.
+    /// </summary>
+    /// <param name="device">Device ID.</param>
+    /// <param name="command">Comando.</param>
     public async void SendToDevice(string device, CommandModel command)
     {
         try
         {
             await HubConnection!.InvokeAsync("SendToDevice", device, command);
         }
-        catch
+        catch (Exception)
         {
-
         }
-
     }
 
 
 
-
+    /// <summary>
+    /// Evento Dispose.
+    /// </summary>
+    public void Dispose()
+    {
+        _ = HubConnection?.DisposeAsync();
+    }
 
 
 }
