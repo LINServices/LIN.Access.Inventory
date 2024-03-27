@@ -6,10 +6,11 @@ public static class Outflows
 
 
     /// <summary>
-    /// Crea una salida de inventario
+    /// Crear salida.
     /// </summary>
-    /// <param name="modelo">Modelo</param>
-    public async static Task<CreateResponse> CreateAsync(OutflowDataModel modelo, string token)
+    /// <param name="modelo">Modelo.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<CreateResponse> Create(OutflowDataModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -30,9 +31,11 @@ public static class Outflows
 
 
     /// <summary>
-    /// Obtiene una salida por medio del Id
+    /// Obtener una salida del inventario.
     /// </summary>
-    /// <param name="id">Id de la salida</param>
+    /// <param name="id">Id de la salida.</param>
+    /// <param name="token">Token de acceso.</param>
+    /// <param name="details">Incluir los detalles.</param>
     public async static Task<ReadOneResponse<OutflowDataModel>> Read(int id, string token, bool details = false)
     {
 
@@ -55,9 +58,10 @@ public static class Outflows
 
 
     /// <summary>
-    /// Obtiene la lista de salidas asociadas a un inventario
+    /// Obtener las salidas asociadas a un inventario.
     /// </summary>
-    /// <param name="id">Id del inventario</param>
+    /// <param name="id">Id del inventario.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadAllResponse<OutflowDataModel>> ReadAll(int id, string token)
     {
 
@@ -75,6 +79,9 @@ public static class Outflows
         return Content;
 
     }
+
+
+
 
 
 

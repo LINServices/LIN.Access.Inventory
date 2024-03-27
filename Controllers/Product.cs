@@ -6,9 +6,10 @@ public static class Product
 
 
     /// <summary>
-    /// Crea un nuevo producto
+    /// Crear un producto.
     /// </summary>
-    /// <param name="modelo">Modelo</param>
+    /// <param name="modelo">Modelo.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<CreateResponse> Create(ProductModel modelo, string token)
     {
 
@@ -29,9 +30,10 @@ public static class Product
 
 
     /// <summary>
-    /// Obtiene la lista de productos asociados a un inventario
+    /// Obtener los productos asociados a un inventario.
     /// </summary>
-    /// <param name="id">Id del inventario</param>
+    /// <param name="id">Id del inventario.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadAllResponse<ProductModel>> ReadAll(int id, string token)
     {
 
@@ -52,12 +54,11 @@ public static class Product
 
 
 
- 
-
     /// <summary>
-    /// Obtiene un producto por medio del Id
+    /// Obtener un producto.
     /// </summary>
-    /// <param name="id">Id del producto</param>
+    /// <param name="id">Id del producto.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadOneResponse<ProductModel>> Read(int id, string token)
     {
 
@@ -78,11 +79,11 @@ public static class Product
 
 
 
-
     /// <summary>
-    /// Obtiene un producto por medio del Id de detalle de producto
+    /// Obtener un producto según su detalle.
     /// </summary>
-    /// <param name="id">Id del detalle</param>
+    /// <param name="id">Id del detalle.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadOneResponse<ProductModel>> ReadOneByDetail(int id, string token)
     {
 
@@ -104,8 +105,11 @@ public static class Product
 
 
     /// <summary>
-    /// Actualiza la informacion de un producto
+    /// Actualizar un producto.
     /// </summary>
+    /// <param name="modelo">Modelo.</param>
+    /// <param name="isBase">Es base.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ResponseBase> UpdateAsync(ProductModel modelo, bool isBase, string token)
     {
 
@@ -117,7 +121,7 @@ public static class Product
         client.AddHeader("isBase", $"{isBase}");
 
         // Resultado.
-        var Content = await client.Patch<ResponseBase>();
+        var Content = await client.Patch<ResponseBase>(modelo);
 
         // Retornar.
         return Content;
@@ -127,8 +131,10 @@ public static class Product
 
 
     /// <summary>
-    /// Actualiza la informacion de un producto
+    /// Actualizar un producto.
     /// </summary>
+    /// <param name="modelo">Modelo.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ResponseBase> Update(ProductModel modelo, string token)
     {
 
@@ -148,9 +154,11 @@ public static class Product
 
 
 
-
-
-
+    /// <summary>
+    /// Eliminar un producto.
+    /// </summary>
+    /// <param name="id">Id del producto.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ResponseBase> Delete(int id, string token)
     {
 
