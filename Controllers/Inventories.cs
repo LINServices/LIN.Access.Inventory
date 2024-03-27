@@ -57,7 +57,7 @@ public static class Inventories
     /// </summary>
     /// <param name="id">Id del usuario</param>
     /// <param name="estado">Nuevo estado</param>
-    public async static Task<ResponseBase> UpdateState(int id, InventoryAccessState estado)
+    public async static Task<ResponseBase> UpdateState(string token, int id, InventoryAccessState estado)
     {
 
         // Cliente HTTP.
@@ -66,6 +66,7 @@ public static class Inventories
         // Headers.
         client.AddHeader("id", id);
         client.AddHeader("estado", (int)estado);
+        client.AddHeader("token", token);
 
         // Resultado.
         var Content = await client.Put<ResponseBase>();
@@ -126,9 +127,32 @@ public static class Inventories
 
 
 
+    /// <summary>
+    /// Obtiene las invitaciones de un usuario.
+    /// /// </summary>
+    public async static Task<ReadOneResponse<Notificacion>> ReadNotification(int id, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/access/read");
+
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("id", id);
+
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<Notificacion>>();
+
+        // Retornar.
+        return Content;
+
+    }
+
+
+
 
     /// <summary>
-    /// Obtiene los inregrantes de un inventario
+    /// Obtiene los integrantes de un inventario
     /// </summary>
     /// <param name="inv">Id del inventario</param>
     /// <param name="user">Id del usuario que esta consultando</param>

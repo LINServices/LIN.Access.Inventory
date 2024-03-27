@@ -118,6 +118,29 @@ public class InventoryAccessHub
 
 
 
+    public async Task Notification(int inventory)
+    {
+        try
+        {
+
+            if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
+            {
+                return;
+            }
+
+            // Suscribe al grupo
+            await HubConnection.InvokeAsync("Notification", Token, inventory);
+
+        }
+        catch (Exception)
+        {
+        }
+
+    }
+
+
+
+
 
 
     public async Task SendCommand(CommandModel command)

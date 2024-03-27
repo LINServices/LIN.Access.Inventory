@@ -133,4 +133,5 @@ public sealed class Session
 
 
     public static Session Instance => _instance;
+
 }
