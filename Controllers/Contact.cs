@@ -126,30 +126,7 @@ public static class Contact
 
 
 
-    /// <summary>
-    /// Elimina un contacto en la papelera.
-    /// </summary>
-    /// <param name="id">Id del contacto</param>
-    /// <param name="token">Token.</param>
-    public async static Task<ResponseBase> ToTrash(int id, string token)
-    {
-
-        // Cliente HTTP.
-        Client client = Service.GetClient("contact/trash");
-
-        // Headers.
-        client.AddHeader("id", id);
-        client.AddHeader("token", token);
-
-        // Resultado.
-        var Content = await client.Delete<ResponseBase>();
-
-        // Retornar.
-        return Content;
-
-    }
-
-
+    
 
     /// <summary>
     /// Contar los contactos asociados.

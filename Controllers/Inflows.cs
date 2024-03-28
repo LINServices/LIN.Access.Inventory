@@ -43,7 +43,7 @@ public static class Inflows
         // Headers.
         client.AddHeader("id", id);
         client.AddHeader("token", token);
-        client.AddHeader("mascara", details.ToString());
+        client.AddHeader("includeDetails", details.ToString());
 
         // Resultado.
         var Content = await client.Get<ReadOneResponse<InflowDataModel>>();
