@@ -51,4 +51,25 @@ public static class Inventories
     }
 
 
+
+   
+    public async static Task<ReadOneResponse<InventoryDataModel>> Read(int id, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/read");
+
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddParameter("id", id);
+
+        // Resultado.
+        var Content = await client.Get<ReadOneResponse<InventoryDataModel>>();
+
+        // Retornar.
+        return Content;
+
+    }
+
+
 }

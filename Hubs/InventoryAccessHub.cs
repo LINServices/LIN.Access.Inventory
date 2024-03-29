@@ -49,6 +49,11 @@ public class InventoryAccessHub : IDisposable
 
 
 
+    public string GetStatus()
+    {
+        return HubConnection?.State.ToString() ?? "";
+    }
+
     /// <summary>
     /// Enviar el evento.
     /// </summary>
