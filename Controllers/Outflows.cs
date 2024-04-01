@@ -132,6 +132,27 @@ public static class Outflows
 
 
 
+    public async static Task<ResponseBase> Update(int id, DateTime date, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("outflow");
+
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
+        client.AddParameter("date", date.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
+
+        // Retornar.
+        return Content;
+
+    }
+
+
+
 
 
 

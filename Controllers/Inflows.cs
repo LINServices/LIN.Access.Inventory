@@ -80,6 +80,32 @@ public static class Inflows
 
 
 
+
+
+    public async static Task<ResponseBase> Update(int id, DateTime date, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("inflow");
+
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
+        client.AddParameter("date", date.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
+
+        // Retornar.
+        return Content;
+
+    }
+
+
+
+
+
+
     /// <summary>
     /// Informe mensual.
     /// </summary>
@@ -100,7 +126,7 @@ public static class Inflows
         var Content = await client.Get<ReadOneResponse<List<byte>>>();
 
         // Retornar.
-        return Content; 
+        return Content;
 
     }
 
