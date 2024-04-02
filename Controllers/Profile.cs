@@ -30,7 +30,6 @@ public static class Profile
 
 
 
-
     /// <summary>
     /// Obtiene los datos de una cuenta especifica
     /// </summary>
@@ -56,58 +55,7 @@ public static class Profile
 
 
     /// <summary>
-    /// Obtiene la cantidad de las ventas en un plazo determinado
-    /// </summary>
-    /// <param name="user">Id del usuario</param>
-    /// <param name="days">Dias atras</param>
-    public async static Task<ReadOneResponse<HomeDto>> TotalSales(int user, int days)
-    {
-
-        // Cliente HTTP.
-        Client client = Service.GetClient("profile/read/id");
-
-        // Headers.
-        client.AddHeader("id", user);
-        client.AddHeader("days", days);
-
-        // Resultado.
-        var Content = await client.Get<ReadOneResponse<HomeDto>>();
-
-        // Retornar.
-        return Content;
-
-    }
-
-
-
-
-    /// <summary>
-    /// Obtiene la valuacion de los inventarios donde un usuario es admin
-    /// </summary>
-    public async static Task<ReadOneResponse<decimal>> ValueInventorys(int user)
-    {
-
-        // Cliente HTTP.
-        Client client = Service.GetClient("inventory/valuation");
-
-        // Headers.
-        client.AddHeader("id", user);
-
-        // Resultado.
-        var Content = await client.Get<ReadOneResponse<decimal>>();
-
-        // Retornar.
-        return Content;
-
-    }
-
-
-
-
-
-
-    /// <summary>
-    /// Busqueda de usuarios por medio de su Id
+    /// Búsqueda de usuarios por medio de su Id
     /// </summary>
     public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearhByPattern(string pattern, string token)
     {
@@ -129,8 +77,6 @@ public static class Profile
 
 
 
-
-
     /// <summary>
     /// Preguntar a Emma.
     /// </summary>
@@ -148,11 +94,6 @@ public static class Profile
         return await client.Post<ReadOneResponse<ResponseIAModel>>(modelo);
 
     }
-
-
-
-
-
 
 
 }

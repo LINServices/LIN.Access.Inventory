@@ -80,8 +80,12 @@ public static class Inflows
 
 
 
-
-
+    /// <summary>
+    /// Actualizar.
+    /// </summary>
+    /// <param name="id">Id de la entrada.</param>
+    /// <param name="date">Nueva fecha.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ResponseBase> Update(int id, DateTime date, string token)
     {
 
@@ -91,7 +95,9 @@ public static class Inflows
         // Headers.
         client.AddHeader("id", id);
         client.AddHeader("token", token);
-        client.AddParameter("date", date.ToString("yyyy-MM-ddTHH:mm:ss"));
+
+        // Parámetros.
+        client.AddParameter("date", date);
 
         // Resultado.
         var Content = await client.Patch<ResponseBase>();
@@ -101,34 +107,6 @@ public static class Inflows
 
     }
 
-
-
-
-
-
-    /// <summary>
-    /// Informe mensual.
-    /// </summary>
-    [Obsolete]
-    public async static Task<ReadOneResponse<List<byte>>> InformeMonth(int contextUser, int id, int mes, int año)
-    {
-
-        // Cliente HTTP.
-        Client client = Service.GetClient("inflow/info");
-
-        // Headers.
-        client.AddHeader("id", id);
-        client.AddHeader("month", $"{mes}");
-        client.AddHeader("year", $"{año}");
-        client.AddHeader("contextUser", $"{contextUser}");
-
-        // Resultado.
-        var Content = await client.Get<ReadOneResponse<List<byte>>>();
-
-        // Retornar.
-        return Content;
-
-    }
 
 
 }

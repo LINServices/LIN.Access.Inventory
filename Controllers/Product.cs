@@ -163,7 +163,7 @@ public static class Product
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("product/detele");
+        Client client = Service.GetClient("product/delete");
 
         // Headers.
         client.AddHeader("id", id);

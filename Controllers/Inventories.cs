@@ -52,7 +52,11 @@ public static class Inventories
 
 
 
-   
+    /// <summary>
+    /// Obtener un inventario.
+    /// </summary>
+    /// <param name="id">Id del inventario.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadOneResponse<InventoryDataModel>> Read(int id, string token)
     {
 
@@ -68,6 +72,7 @@ public static class Inventories
 
         // Retornar.
         return Content;
+
 
     }
 

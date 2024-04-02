@@ -126,29 +126,4 @@ public static class Contact
 
 
 
-    
-
-    /// <summary>
-    /// Contar los contactos asociados.
-    /// </summary>
-    /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<int>> Count(string token)
-    {
-
-        // Cliente HTTP.
-        Client client = Service.GetClient("contact/count");
-
-        // Headers.
-        client.AddHeader("token", token);
-
-        // Resultado.
-        var Content = await client.Get<ReadOneResponse<int>>();
-
-        // Retornar.
-        return Content;
-
-    }
-
-
-
 }
