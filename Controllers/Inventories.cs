@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace LIN.Access.Inventory.Controllers;
+﻿namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Inventories

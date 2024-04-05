@@ -5,7 +5,11 @@ public static class InventoryAccess
 {
 
 
-    
+    /// <summary>
+    /// Crear acceso a un inventario.
+    /// </summary>
+    /// <param name="modelo">Modelo de acceso.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<CreateResponse> Create(InventoryAcessDataModel modelo, string token)
     {
 
