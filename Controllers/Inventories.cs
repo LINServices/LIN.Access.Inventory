@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Inventory.Controllers;
+﻿using System.Runtime.InteropServices;
+
+namespace LIN.Access.Inventory.Controllers;
 
 
 public static class Inventories
@@ -69,6 +71,33 @@ public static class Inventories
 
         // Resultado.
         var Content = await client.Get<ReadOneResponse<InventoryDataModel>>();
+
+        // Retornar.
+        return Content;
+
+
+    }
+
+
+    /// <summary>
+    /// Obtener un inventario.
+    /// </summary>
+    /// <param name="id">Id del inventario.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<ResponseBase> Update(int id, string name, string description, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory");
+
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddParameter("id", id);
+        client.AddParameter("name", name);
+        client.AddParameter("description", description);
+
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
 
         // Retornar.
         return Content;

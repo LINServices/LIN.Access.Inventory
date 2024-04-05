@@ -5,6 +5,26 @@ public static class InventoryAccess
 {
 
 
+    
+    public async static Task<CreateResponse> Create(InventoryAcessDataModel modelo, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("inventory/access");
+
+        // Headers.
+        client.AddHeader("token", token);
+
+        // Resultado.
+        var Content = await client.Post<CreateResponse>(modelo);
+
+        // Retornar.
+        return Content;
+
+    }
+
+
+
     /// <summary>
     /// Actualizar estado.
     /// </summary>
