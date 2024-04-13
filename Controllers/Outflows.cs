@@ -14,7 +14,7 @@ public static class Outflows
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("outflow/create");
+        Client client = Service.GetClient("outflow");
 
         // Headers.
         client.AddHeader("token", token);
@@ -40,7 +40,7 @@ public static class Outflows
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("outflow/read");
+        Client client = Service.GetClient("outflow");
 
         // Headers.
         client.AddHeader("id", id);
@@ -66,7 +66,7 @@ public static class Outflows
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("outflow/read/all");
+        Client client = Service.GetClient("outflow/all");
 
         // Headers.
         client.AddHeader("id", id);

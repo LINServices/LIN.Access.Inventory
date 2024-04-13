@@ -14,7 +14,7 @@ public static class Inflows
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inflow/create");
+        Client client = Service.GetClient("inflow");
 
         // Headers.
         client.AddHeader("token", token);
@@ -38,7 +38,7 @@ public static class Inflows
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inflow/read");
+        Client client = Service.GetClient("inflow");
 
         // Headers.
         client.AddHeader("id", id);
@@ -64,7 +64,7 @@ public static class Inflows
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inflow/read/all");
+        Client client = Service.GetClient("inflow/all");
 
         // Headers.
         client.AddHeader("id", id);

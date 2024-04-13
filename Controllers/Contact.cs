@@ -16,7 +16,7 @@ public static class Contact
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("contact/create");
+        Client client = Service.GetClient("contact");
 
         // Headers.
         client.AddHeader("token", token);
@@ -40,7 +40,7 @@ public static class Contact
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("contact/read");
+        Client client = Service.GetClient("contact");
 
         // Headers.
         client.AddHeader("id", id);
@@ -88,7 +88,7 @@ public static class Contact
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("contact/update");
+        Client client = Service.GetClient("contact");
 
         // Headers.
         client.AddHeader("token", token);
@@ -111,7 +111,7 @@ public static class Contact
     public async static Task<ResponseBase> Delete(int id, string token)
     {
         // Cliente HTTP.
-        Client client = Service.GetClient("contact/delete");
+        Client client = Service.GetClient("contact");
 
         // Headers.
         client.AddHeader("id", id);

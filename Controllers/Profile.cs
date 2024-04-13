@@ -38,7 +38,7 @@ public static class Profile
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("profile/read/id");
+        Client client = Service.GetClient("profile");
 
         // Headers.
         client.AddHeader("id", id);

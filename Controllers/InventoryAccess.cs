@@ -59,22 +59,22 @@ public static class InventoryAccess
     /// <summary>
     /// Actualiza el rol de un usuario en un inventario.
     /// </summary>
-    /// <param name="id">Id del inventario</param>
+    /// <param name="id">Id del acceso</param>
     /// <param name="rol">Nuevo rol</param>
     /// <param name="token">Token de acceso</param>
     public async static Task<ResponseBase> UpdateRol(int id, InventoryRoles rol, string token)
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/update/rol");
+        Client client = Service.GetClient("inventory/access/update/rol");
 
         // Headers.
-        client.AddHeader("id", id);
-        client.AddHeader("newRol", (int)rol);
+        client.AddParameter("id", id);
+        client.AddParameter("rol", (int)rol);
         client.AddHeader("token", token);
 
         // Resultado.
-        var Content = await client.Patch<ResponseBase>();
+        var Content = await client.Put<ResponseBase>();
 
         // Retornar.
         return Content;
@@ -115,7 +115,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access/read");
+        Client client = Service.GetClient("inventory/access");
 
         // Headers.
         client.AddHeader("token", token);

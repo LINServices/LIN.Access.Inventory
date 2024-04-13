@@ -14,7 +14,7 @@ public static class Product
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("product/create");
+        Client client = Service.GetClient("product");
 
         // Headers.
         client.AddHeader("token", token);
@@ -63,7 +63,7 @@ public static class Product
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("product/read");
+        Client client = Service.GetClient("product");
 
         // Headers.
         client.AddHeader("id", id);
@@ -114,7 +114,7 @@ public static class Product
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("product/update");
+        Client client = Service.GetClient("product");
 
         // Headers.
         client.AddHeader("token", token);
@@ -139,7 +139,7 @@ public static class Product
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("product/update");
+        Client client = Service.GetClient("product");
 
         // Headers.
         client.AddHeader("token", token);
@@ -163,7 +163,7 @@ public static class Product
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("product/delete");
+        Client client = Service.GetClient("product");
 
         // Headers.
         client.AddHeader("id", id);
