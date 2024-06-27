@@ -14,7 +14,7 @@ public class Authentication
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("auth/credentials");
+        Client client = Service.GetClient("Auth/credentials");
 
         // TimeOut
         client.TimeOut = 20;
