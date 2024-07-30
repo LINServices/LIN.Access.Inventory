@@ -9,7 +9,7 @@ public static class Statistics
     /// Obtener los inventarios asociados a una cuenta.
     /// </summary>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<HomeDto>> HomeStatistics(string token)
+    public static async Task<ReadOneResponse<HomeDto>> HomeStatistics(string token)
     {
 
         // Cliente HTTP.

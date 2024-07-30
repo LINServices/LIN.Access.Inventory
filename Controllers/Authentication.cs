@@ -10,7 +10,7 @@ public class Authentication
     /// </summary>
     /// <param name="cuenta">Cuenta.</param>
     /// <param name="password">Contraseña.</param>
-    public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string cuenta, string password)
+    public static async Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string cuenta, string password)
     {
 
         // Cliente HTTP.
@@ -37,7 +37,7 @@ public class Authentication
     /// Obtener una sesión por medio del token.
     /// </summary>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string token)
+    public static async Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string token)
     {
 
         // Cliente HTTP.

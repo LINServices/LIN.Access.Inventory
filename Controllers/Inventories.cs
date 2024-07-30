@@ -10,7 +10,7 @@ public static class Inventories
     /// </summary>
     /// <param name="modelo">Modelo.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<CreateResponse> Create(InventoryDataModel modelo, string token)
+    public static async Task<CreateResponse> Create(InventoryDataModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -33,7 +33,7 @@ public static class Inventories
     /// Obtener los inventarios asociados a una cuenta.
     /// </summary>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<InventoryDataModel>> ReadAll(string token)
+    public static async Task<ReadAllResponse<InventoryDataModel>> ReadAll(string token)
     {
 
         // Cliente HTTP.
@@ -57,7 +57,7 @@ public static class Inventories
     /// </summary>
     /// <param name="id">Id del inventario.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<InventoryDataModel>> Read(int id, string token)
+    public static async Task<ReadOneResponse<InventoryDataModel>> Read(int id, string token)
     {
 
         // Cliente HTTP.
@@ -82,7 +82,7 @@ public static class Inventories
     /// </summary>
     /// <param name="id">Id del inventario.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Update(int id, string name, string description, string token)
+    public static async Task<ResponseBase> Update(int id, string name, string description, string token)
     {
 
         // Cliente HTTP.

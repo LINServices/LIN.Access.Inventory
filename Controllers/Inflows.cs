@@ -10,7 +10,7 @@ public static class Inflows
     /// </summary>
     /// <param name="modelo">Modelo.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<CreateResponse> Create(InflowDataModel modelo, string token)
+    public static async Task<CreateResponse> Create(InflowDataModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -34,7 +34,7 @@ public static class Inflows
     /// </summary>
     /// <param name="id">Id de la entrada.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<InflowDataModel>> Read(int id, string token, bool details = false)
+    public static async Task<ReadOneResponse<InflowDataModel>> Read(int id, string token, bool details = false)
     {
 
         // Cliente HTTP.
@@ -60,7 +60,7 @@ public static class Inflows
     /// </summary>
     /// <param name="id">Id del inventario.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<InflowDataModel>> ReadAll(int id, string token)
+    public static async Task<ReadAllResponse<InflowDataModel>> ReadAll(int id, string token)
     {
 
         // Cliente HTTP.
@@ -86,7 +86,7 @@ public static class Inflows
     /// <param name="id">Id de la entrada.</param>
     /// <param name="date">Nueva fecha.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Update(int id, DateTime date, string token)
+    public static async Task<ResponseBase> Update(int id, DateTime date, string token)
     {
 
         // Cliente HTTP.

@@ -12,7 +12,7 @@ public static class Contact
     /// </summary>
     /// <param name="token">Token de acceso.</param>
     /// <param name="modelo">Modelo.</param>
-    public async static Task<CreateResponse> Create(string token, ContactModel modelo)
+    public static async Task<CreateResponse> Create(string token, ContactModel modelo)
     {
 
         // Cliente HTTP.
@@ -36,7 +36,7 @@ public static class Contact
     /// </summary>
     /// <param name="id">Id del contacto.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<ContactModel>> Read(int id, string token)
+    public static async Task<ReadOneResponse<ContactModel>> Read(int id, string token)
     {
 
         // Cliente HTTP.
@@ -60,7 +60,7 @@ public static class Contact
     /// Obtiene los contactos asociados a un perfil.
     /// </summary>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<ContactModel>> ReadAll(string token)
+    public static async Task<ReadAllResponse<ContactModel>> ReadAll(string token)
     {
 
         // Cliente HTTP.
@@ -84,7 +84,7 @@ public static class Contact
     /// </summary>
     /// <param name="modelo">Nuevo modelo</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Update(ContactModel modelo, string token)
+    public static async Task<ResponseBase> Update(ContactModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -108,7 +108,7 @@ public static class Contact
     /// </summary>
     /// <param name="id">Id del contacto</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Delete(int id, string token)
+    public static async Task<ResponseBase> Delete(int id, string token)
     {
         // Cliente HTTP.
         Client client = Service.GetClient("contact");

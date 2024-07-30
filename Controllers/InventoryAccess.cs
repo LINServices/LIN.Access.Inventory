@@ -10,7 +10,7 @@ public static class InventoryAccess
     /// </summary>
     /// <param name="modelo">Modelo de acceso.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<CreateResponse> Create(InventoryAcessDataModel modelo, string token)
+    public static async Task<CreateResponse> Create(InventoryAcessDataModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -35,7 +35,7 @@ public static class InventoryAccess
     /// <param name="token">Token de acceso.</param>
     /// <param name="id">Id de la invitación.</param>
     /// <param name="estado">Nuevo estado.</param>
-    public async static Task<ResponseBase> UpdateState(string token, int id, InventoryAccessState estado)
+    public static async Task<ResponseBase> UpdateState(string token, int id, InventoryAccessState estado)
     {
 
         // Cliente HTTP.
@@ -62,7 +62,7 @@ public static class InventoryAccess
     /// <param name="id">Id del acceso</param>
     /// <param name="rol">Nuevo rol</param>
     /// <param name="token">Token de acceso</param>
-    public async static Task<ResponseBase> UpdateRol(int id, InventoryRoles rol, string token)
+    public static async Task<ResponseBase> UpdateRol(int id, InventoryRoles rol, string token)
     {
 
         // Cliente HTTP.
@@ -87,7 +87,7 @@ public static class InventoryAccess
     /// Obtener las invitaciones.
     /// </summary>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<Notificacion>> ReadNotifications(string token)
+    public static async Task<ReadAllResponse<Notificacion>> ReadNotifications(string token)
     {
 
         // Cliente HTTP.
@@ -111,7 +111,7 @@ public static class InventoryAccess
     /// </summary>
     /// <param name="id">Id de la invitación.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<Notificacion>> ReadNotification(int id, string token)
+    public static async Task<ReadOneResponse<Notificacion>> ReadNotification(int id, string token)
     {
 
         // Cliente HTTP.
@@ -138,7 +138,7 @@ public static class InventoryAccess
     /// <param name="inv">Id del inventario.</param>
     /// <param name="tokenLocal">Token de acceso [Inventario]</param>
     /// <param name="token">Token de acceso [LIN Identity]</param>
-    public async static Task<ReadAllResponse<IntegrantDataModel>> GetMembers(int inv, string tokenLocal, string token)
+    public static async Task<ReadAllResponse<IntegrantDataModel>> GetMembers(int inv, string tokenLocal, string token)
     {
 
         // Cliente HTTP.
@@ -165,7 +165,7 @@ public static class InventoryAccess
     /// <param name="inv">Id del inventario.</param>
     /// <param name="user">Id del usuario a eliminar</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> DeleteSomeOne(int inv, int user, string token)
+    public static async Task<ResponseBase> DeleteSomeOne(int inv, int user, string token)
     {
 
         // Cliente HTTP.

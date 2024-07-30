@@ -103,7 +103,7 @@ public class InventoryAccessHub : IDisposable
             // Validar estado del Hub.
             if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
                 return;
-            
+
             // Suscribe al grupo
             await HubConnection.InvokeAsync("JoinInventory", Token, inventory);
 
@@ -128,7 +128,7 @@ public class InventoryAccessHub : IDisposable
             // Validar hub.
             if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
                 return;
-            
+
             // Suscribe al grupo
             await HubConnection.InvokeAsync("Notification", Token, inventory);
 

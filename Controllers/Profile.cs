@@ -11,11 +11,11 @@ public static class Profile
     /// Obtiene los datos de una cuenta especifica
     /// </summary>
     /// <param name="id">Id de la cuenta</param>
-    public async static Task<ReadAllResponse<DeviceModel>> ReadDevices(string token)
+    public static async Task<ReadAllResponse<DeviceModel>> ReadDevices(string token)
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("device");
+        Client client = Service.GetClient("devices");
 
         // Headers.
         client.AddHeader("token", token);
@@ -34,7 +34,7 @@ public static class Profile
     /// Obtiene los datos de una cuenta especifica
     /// </summary>
     /// <param name="id">Id de la cuenta</param>
-    public async static Task<ReadOneResponse<ProfileModel>> ReadOne(int id, string token)
+    public static async Task<ReadOneResponse<ProfileModel>> ReadOne(int id, string token)
     {
 
         // Cliente HTTP.
@@ -57,7 +57,7 @@ public static class Profile
     /// <summary>
     /// Búsqueda de usuarios por medio de su Id
     /// </summary>
-    public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearhByPattern(string pattern, string token)
+    public static async Task<ReadAllResponse<SessionModel<ProfileModel>>> SearchByPattern(string pattern, string token)
     {
 
         // Cliente HTTP.
@@ -82,7 +82,7 @@ public static class Profile
     /// </summary>
     /// <param name="token">Preguntar a Emma.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
+    public static async Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
     {
 
         // Cliente

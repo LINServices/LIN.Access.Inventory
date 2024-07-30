@@ -10,7 +10,7 @@ public static class Outflows
     /// </summary>
     /// <param name="modelo">Modelo.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<CreateResponse> Create(OutflowDataModel modelo, string token)
+    public static async Task<CreateResponse> Create(OutflowDataModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -36,7 +36,7 @@ public static class Outflows
     /// <param name="id">Id de la salida.</param>
     /// <param name="token">Token de acceso.</param>
     /// <param name="details">Incluir los detalles.</param>
-    public async static Task<ReadOneResponse<OutflowDataModel>> Read(int id, string token, bool details = false)
+    public static async Task<ReadOneResponse<OutflowDataModel>> Read(int id, string token, bool details = false)
     {
 
         // Cliente HTTP.
@@ -62,7 +62,7 @@ public static class Outflows
     /// </summary>
     /// <param name="id">Id del inventario.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<OutflowDataModel>> ReadAll(int id, string token)
+    public static async Task<ReadAllResponse<OutflowDataModel>> ReadAll(int id, string token)
     {
 
         // Cliente HTTP.
@@ -88,7 +88,7 @@ public static class Outflows
     /// <param name="id">Id de la salida.</param>
     /// <param name="date">Nueva fecha.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Update(int id, DateTime date, string token)
+    public static async Task<ResponseBase> Update(int id, DateTime date, string token)
     {
 
         // Cliente HTTP.

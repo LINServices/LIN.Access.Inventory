@@ -10,7 +10,7 @@ public static class Product
     /// </summary>
     /// <param name="modelo">Modelo.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<CreateResponse> Create(ProductModel modelo, string token)
+    public static async Task<CreateResponse> Create(ProductModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -34,7 +34,7 @@ public static class Product
     /// </summary>
     /// <param name="id">Id del inventario.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<ProductModel>> ReadAll(int id, string token)
+    public static async Task<ReadAllResponse<ProductModel>> ReadAll(int id, string token)
     {
 
         // Cliente HTTP.
@@ -59,7 +59,7 @@ public static class Product
     /// </summary>
     /// <param name="id">Id del producto.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<ProductModel>> Read(int id, string token)
+    public static async Task<ReadOneResponse<ProductModel>> Read(int id, string token)
     {
 
         // Cliente HTTP.
@@ -84,7 +84,7 @@ public static class Product
     /// </summary>
     /// <param name="id">Id del detalle.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<ProductModel>> ReadOneByDetail(int id, string token)
+    public static async Task<ReadOneResponse<ProductModel>> ReadOneByDetail(int id, string token)
     {
 
         // Cliente HTTP.
@@ -110,7 +110,7 @@ public static class Product
     /// <param name="modelo">Modelo.</param>
     /// <param name="isBase">Es base.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> UpdateAsync(ProductModel modelo, bool isBase, string token)
+    public static async Task<ResponseBase> UpdateAsync(ProductModel modelo, bool isBase, string token)
     {
 
         // Cliente HTTP.
@@ -135,7 +135,7 @@ public static class Product
     /// </summary>
     /// <param name="modelo">Modelo.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Update(ProductModel modelo, string token)
+    public static async Task<ResponseBase> Update(ProductModel modelo, string token)
     {
 
         // Cliente HTTP.
@@ -159,7 +159,7 @@ public static class Product
     /// </summary>
     /// <param name="id">Id del producto.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ResponseBase> Delete(int id, string token)
+    public static async Task<ResponseBase> Delete(int id, string token)
     {
 
         // Cliente HTTP.
