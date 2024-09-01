@@ -9,7 +9,7 @@ public class Build
     {
         Service._Service = new();
         Service._Service.SetDefault(url ?? "https://api.inventory.linplatform.com/");
-        //Service._Service.SetDefault("http://localhost:5089/");
+        //Service._Service.SetDefault("https://localhost:7019/");
     }
 
 
