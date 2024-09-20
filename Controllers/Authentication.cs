@@ -23,14 +23,12 @@ public class Authentication
         client.AddParameter("user", cuenta);
         client.AddParameter("password", password);
 
-        // Resultado.
-        var Content = await client.Get<ReadOneResponse<AuthModel<ProfileModel>>>();
+        var content = await client.Get<ReadOneResponse<AuthModel<ProfileModel>>>();
 
         // Retornar.
-        return Content;
+        return content;
 
     }
-
 
 
     /// <summary>
@@ -53,7 +51,5 @@ public class Authentication
         return Content;
 
     }
-
-
 
 }
