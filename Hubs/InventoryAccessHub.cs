@@ -116,30 +116,6 @@ public class InventoryAccessHub : IDisposable
 
 
 
-    /// <summary>
-    /// Enviar notificación de inventario a los integrantes que aun no han aceptado.
-    /// </summary>
-    /// <param name="inventory">Id del inventario.</param>
-    public async Task Notification(int inventory)
-    {
-        try
-        {
-
-            // Validar hub.
-            if (HubConnection == null || HubConnection.State != HubConnectionState.Connected)
-                return;
-
-            // Suscribe al grupo
-            await HubConnection.InvokeAsync("Notification", Token, inventory);
-
-        }
-        catch (Exception)
-        {
-        }
-
-    }
-
-
 
     /// <summary>
     /// Enviar un comando.
