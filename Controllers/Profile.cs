@@ -80,7 +80,7 @@ public static class Profile
     /// </summary>
     /// <param name="token">Preguntar a Emma.</param>
     /// <param name="token">Token de acceso.</param>
-    public static async Task<ReadOneResponse<LIN.Types.Cloud.OpenAssistant.Api.AssistantResponse>> ToEmma(string modelo, string token)
+    public static async Task<ReadOneResponse<LIN.Types.Cloud.OpenAssistant.Models.EmmaSchemaResponse>> ToEmma(string modelo, string token)
     {
 
         // Cliente
@@ -89,7 +89,7 @@ public static class Profile
         // Headers.
         client.AddHeader("tokenAuth", token);
 
-        return await client.Post<ReadOneResponse<Types.Cloud.OpenAssistant.Api.AssistantResponse>>(modelo);
+        return await client.Post<ReadOneResponse<Types.Cloud.OpenAssistant.Models.EmmaSchemaResponse>>(modelo);
 
     }
 
