@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class InventoryAccess
 {
-
 
     /// <summary>
     /// Crear acceso a un inventario.
@@ -26,7 +24,6 @@ public static class InventoryAccess
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -55,7 +52,6 @@ public static class InventoryAccess
     }
 
 
-
     /// <summary>
     /// Actualiza el rol de un usuario en un inventario.
     /// </summary>
@@ -82,7 +78,6 @@ public static class InventoryAccess
     }
 
 
-
     /// <summary>
     /// Obtener las invitaciones.
     /// </summary>
@@ -103,7 +98,6 @@ public static class InventoryAccess
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -128,8 +122,6 @@ public static class InventoryAccess
         return Content;
 
     }
-
-
 
 
     /// <summary>
@@ -158,7 +150,6 @@ public static class InventoryAccess
     }
 
 
-
     /// <summary>
     /// Eliminar a alguien de un inventario.
     /// </summary>
@@ -183,7 +174,5 @@ public static class InventoryAccess
         return Content;
 
     }
-
-
 
 }

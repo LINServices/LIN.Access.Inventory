@@ -1,15 +1,12 @@
 ﻿namespace LIN.Access.Inventory.Hubs;
 
-
 public class InventoryAccessHub : IDisposable
 {
-
 
     /// <summary>
     /// Conexión del HUB
     /// </summary>
     private protected HubConnection? HubConnection { get; set; }
-
 
 
     /// <summary>
@@ -18,20 +15,16 @@ public class InventoryAccessHub : IDisposable
     public event EventHandler<CommandModel>? On;
 
 
-
     /// <summary>
     /// Token de acceso.
     /// </summary>
     public string Token { get; set; }
 
 
-
     /// <summary>
     /// Modelo del dispositivo.
     /// </summary>
     public DeviceModel Device { get; set; }
-
-
 
 
     /// <summary>
@@ -46,20 +39,17 @@ public class InventoryAccessHub : IDisposable
         Suscribe();
     }
 
-
-
-
     public string GetStatus()
     {
         return HubConnection?.State.ToString() ?? "";
     }
+
 
     /// <summary>
     /// Enviar el evento.
     /// </summary>
     /// <param name="cm">Comando.</param>
     private protected void SendEvent(CommandModel cm) => On?.Invoke(null, cm);
-
 
 
     /// <summary>
@@ -90,7 +80,6 @@ public class InventoryAccessHub : IDisposable
     }
 
 
-
     /// <summary>
     /// Unir a un grupo de inventario.
     /// </summary>
@@ -115,8 +104,6 @@ public class InventoryAccessHub : IDisposable
     }
 
 
-
-
     /// <summary>
     /// Enviar un comando.
     /// </summary>
@@ -131,7 +118,6 @@ public class InventoryAccessHub : IDisposable
         {
         }
     }
-
 
 
     /// <summary>
@@ -151,7 +137,6 @@ public class InventoryAccessHub : IDisposable
     }
 
 
-
     /// <summary>
     /// Evento Dispose.
     /// </summary>
@@ -159,6 +144,5 @@ public class InventoryAccessHub : IDisposable
     {
         _ = HubConnection?.DisposeAsync();
     }
-
 
 }

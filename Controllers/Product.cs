@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Product
 {
-
 
     /// <summary>
     /// Crear un producto.
@@ -26,7 +24,6 @@ public static class Product
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -53,7 +50,6 @@ public static class Product
     }
 
 
-
     /// <summary>
     /// Obtener un producto.
     /// </summary>
@@ -78,7 +74,6 @@ public static class Product
     }
 
 
-
     /// <summary>
     /// Obtener un producto según su detalle.
     /// </summary>
@@ -101,7 +96,6 @@ public static class Product
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -129,7 +123,6 @@ public static class Product
     }
 
 
-
     /// <summary>
     /// Actualizar un producto.
     /// </summary>
@@ -151,7 +144,6 @@ public static class Product
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -176,7 +168,5 @@ public static class Product
         return Content;
 
     }
-
-
 
 }

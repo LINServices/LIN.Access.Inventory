@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Statistics
 {
-
 
     /// <summary>
     /// Obtener los inventarios asociados a una cuenta.
@@ -25,6 +23,5 @@ public static class Statistics
         return Content;
 
     }
-
 
 }

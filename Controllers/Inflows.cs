@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Inflows
 {
-
 
     /// <summary>
     /// Crear un movimiento de entrada.
@@ -26,7 +24,6 @@ public static class Inflows
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -54,7 +51,6 @@ public static class Inflows
     }
 
 
-
     /// <summary>
     /// Obtiene la lista de entradas asociadas a un inventario.
     /// </summary>
@@ -77,7 +73,6 @@ public static class Inflows
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -106,7 +101,5 @@ public static class Inflows
         return Content;
 
     }
-
-
 
 }

@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Inventories
 {
-
 
     /// <summary>
     /// Crear inventario.
@@ -28,7 +26,6 @@ public static class Inventories
     }
 
 
-
     /// <summary>
     /// Obtener los inventarios asociados a una cuenta.
     /// </summary>
@@ -49,7 +46,6 @@ public static class Inventories
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -102,6 +98,5 @@ public static class Inventories
 
 
     }
-
 
 }

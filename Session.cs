@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory;
 
-
 public sealed class Session
 {
-
 
     public string Token { get; set; }
     public string ContactsToken { get; set; }

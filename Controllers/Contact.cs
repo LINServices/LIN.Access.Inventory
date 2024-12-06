@@ -2,10 +2,8 @@
 
 namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Contact
 {
-
 
     /// <summary>
     /// Crear nuevo contacto.
@@ -28,7 +26,6 @@ public static class Contact
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -55,7 +52,6 @@ public static class Contact
     }
 
 
-
     /// <summary>
     /// Obtiene los contactos asociados a un perfil.
     /// </summary>
@@ -76,7 +72,6 @@ public static class Contact
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -102,7 +97,6 @@ public static class Contact
     }
 
 
-
     /// <summary>
     /// Elimina un contacto.
     /// </summary>
@@ -123,7 +117,5 @@ public static class Contact
         // Retornar.
         return Content;
     }
-
-
 
 }

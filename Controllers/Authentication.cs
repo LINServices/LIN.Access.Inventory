@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public class Authentication
 {
-
 
     /// <summary>
     /// Iniciar sesión.

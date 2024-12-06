@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Profile
 {
-
 
     /// <summary>
     /// Obtiene los datos de una cuenta especifica
@@ -25,7 +23,6 @@ public static class Profile
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -51,7 +48,6 @@ public static class Profile
     }
 
 
-
     /// <summary>
     /// Búsqueda de usuarios por medio de su Id
     /// </summary>
@@ -74,7 +70,6 @@ public static class Profile
     }
 
 
-
     /// <summary>
     /// Preguntar a Emma.
     /// </summary>
@@ -92,6 +87,5 @@ public static class Profile
         return await client.Post<ReadOneResponse<Types.Cloud.OpenAssistant.Models.EmmaSchemaResponse>>(modelo);
 
     }
-
 
 }

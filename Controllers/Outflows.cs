@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Inventory.Controllers;
 
-
 public static class Outflows
 {
-
 
     /// <summary>
     /// Crear salida.
@@ -27,7 +25,6 @@ public static class Outflows
 
 
     }
-
 
 
     /// <summary>
@@ -56,7 +53,6 @@ public static class Outflows
     }
 
 
-
     /// <summary>
     /// Obtener las salidas asociadas a un inventario.
     /// </summary>
@@ -79,7 +75,6 @@ public static class Outflows
         return Content;
 
     }
-
 
 
     /// <summary>
@@ -108,6 +103,5 @@ public static class Outflows
         return Content;
 
     }
-
 
 }
