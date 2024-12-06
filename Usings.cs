@@ -7,3 +7,4 @@ global using LIN.Types.Responses;
 global using Microsoft.AspNetCore.SignalR.Client;
 global using System;
 global using System.Threading.Tasks;
+global using LIN.Types.Contacts.Models;

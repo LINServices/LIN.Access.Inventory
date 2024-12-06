@@ -1,6 +1,4 @@
-﻿using LIN.Types.Contacts.Models;
-
-namespace LIN.Access.Inventory.Controllers;
+﻿namespace LIN.Access.Inventory.Controllers;
 
 public static class Contact
 {
