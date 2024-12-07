@@ -1,16 +1,27 @@
-﻿namespace LIN.Access.Inventory;
+﻿using Microsoft.Extensions.DependencyInjection;
 
+namespace LIN.Access.Inventory;
 
-public class Build
+public static class Build
 {
 
+    /// <summary>
+    /// Autenticación de la aplicación.
+    /// </summary>
+    internal static string Application { get; set; } = string.Empty;
 
-    public static void Init(string? url = null)
+
+    /// <summary>
+    /// Utilizar LIN Inventory.
+    /// </summary>
+    /// <param name="app">Aplicación.</param>
+    /// <param name="url">Ruta.</param>
+    public static IServiceCollection AddInventoryService(this IServiceCollection service, string? url = null, string? app = null)
     {
         Service._Service = new();
         Service._Service.SetDefault(url ?? "https://api.inventory.linplatform.com/");
-        //Service._Service.SetDefault("https://localhost:7019/");
+        Application = app ?? "default";
+        return service;
     }
-
 
 }

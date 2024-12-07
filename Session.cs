@@ -1,16 +1,26 @@
-﻿namespace LIN.Access.Inventory;
+﻿using ProfileModel = LIN.Types.Inventory.Models.ProfileModel;
+
+namespace LIN.Access.Inventory;
 
 public sealed class Session
 {
 
+    /// <summary>
+    /// Token de acceso.
+    /// </summary>
     public string Token { get; set; }
+
+
+    /// <summary>
+    /// Token de contactos.
+    /// </summary>
     public string ContactsToken { get; set; }
 
 
     /// <summary>
     /// Información del usuario
     /// </summary>
-    public ProfileModel Informacion { get; private set; } = new();
+    public ProfileModel Information { get; private set; } = new();
 
 
     /// <summary>
@@ -19,8 +29,10 @@ public sealed class Session
     public LIN.Types.Cloud.Identity.Models.AccountModel Account { get; private set; } = new();
 
 
+    /// <summary>
+    /// Token de identidad.
+    /// </summary>
     public string AccountToken { get; set; }
-
 
 
     /// <summary>
@@ -29,13 +41,10 @@ public sealed class Session
     public static bool IsAccountOpen { get => Instance.Account.Id > 0; }
 
 
-
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
-    public static bool IsLocalOpen { get => Instance.Informacion.Id > 0; }
-
-
+    public static bool IsLocalOpen { get => Instance.Information.Id > 0; }
 
 
     /// <summary>
@@ -55,7 +64,7 @@ public sealed class Session
 
 
         // Datos de la instancia
-        Instance.Informacion = response.Model.Profile;
+        Instance.Information = response.Model.Profile;
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
@@ -65,7 +74,6 @@ public sealed class Session
         return (Instance, Responses.Success);
 
     }
-
 
 
     /// <summary>
@@ -86,7 +94,7 @@ public sealed class Session
 
 
         // Datos de la instancia
-        Instance.Informacion = response.Model.Profile;
+        Instance.Information = response.Model.Profile;
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
@@ -98,22 +106,14 @@ public sealed class Session
     }
 
 
-
-
-
-
     /// <summary>
     /// Cierra la sesión
     /// </summary>
     public static void CloseSession()
     {
-        Instance.Informacion = new();
+        Instance.Information = new();
         Instance.Account = new();
     }
-
-
-
-
 
 
     //==================== Singleton ====================//
@@ -126,7 +126,7 @@ public sealed class Session
         Token = string.Empty;
         ContactsToken = string.Empty;
         AccountToken = string.Empty;
-        Informacion = new();
+        Information = new();
     }
 
 

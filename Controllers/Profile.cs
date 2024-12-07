@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Inventory.Controllers;
+﻿using ProfileModel = LIN.Types.Inventory.Models.ProfileModel;
+
+namespace LIN.Access.Inventory.Controllers;
 
 public static class Profile
 {
