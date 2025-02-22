@@ -8,7 +8,7 @@ public static class InventoryAccess
     /// </summary>
     /// <param name="modelo">Modelo de acceso.</param>
     /// <param name="token">Token de acceso.</param>
-    public static async Task<CreateResponse> Create(InventoryAcessDataModel modelo, string token)
+    public static async Task<CreateResponse> Create(InventoryAccessDataModel modelo, string token)
     {
 
         // Cliente HTTP.
