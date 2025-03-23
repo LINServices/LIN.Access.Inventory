@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Inventory.Controllers;
+﻿using LIN.Types.Cloud.Identity.Models;
+
+namespace LIN.Access.Inventory.Controllers;
 
 public static class Inflows
 {
@@ -31,7 +33,7 @@ public static class Inflows
     /// </summary>
     /// <param name="id">Id de la entrada.</param>
     /// <param name="token">Token de acceso.</param>
-    public static async Task<ReadOneResponse<InflowDataModel>> Read(int id, string token, bool details = false)
+    public static async Task<(ReadOneResponse<InflowDataModel> response, AccountModel? account)> Read(int id, string token, string identityToken, bool details = false)
     {
 
         // Cliente HTTP.
@@ -40,13 +42,16 @@ public static class Inflows
         // Headers.
         client.AddHeader("id", id);
         client.AddHeader("token", token);
+        client.AddHeader("identityToken", identityToken);
         client.AddHeader("includeDetails", details.ToString());
 
         // Resultado.
         var Content = await client.Get<ReadOneResponse<InflowDataModel>>();
 
+        var account = Newtonsoft.Json.JsonConvert.DeserializeObject<AccountModel>(Content.Alternatives?.FirstOrDefault()?.ToString() ?? "");
+
         // Retornar.
-        return Content;
+        return (Content, account);
 
     }
 

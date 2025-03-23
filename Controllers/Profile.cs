@@ -72,6 +72,31 @@ public static class Profile
     }
 
 
+
+
+    /// <summary>
+    /// Búsqueda de usuarios por medio de su Id
+    /// </summary>
+    public static async Task<ReadAllResponse<OutsiderModel>> SearchOutsiders(string pattern, int inventory,  string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("profile/outsiders/search");
+
+        // Headers.
+        client.AddParameter("pattern", pattern);
+        client.AddHeader("token", token);
+        client.AddHeader("inventory", inventory);
+
+        // Resultado.
+        var Content = await client.Get<ReadAllResponse<OutsiderModel>>();
+
+        // Retornar.
+        return Content;
+
+    }
+
+
     /// <summary>
     /// Preguntar a Emma.
     /// </summary>
