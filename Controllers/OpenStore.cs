@@ -3,8 +3,15 @@
 public static class OpenStore
 {
 
-
-    public static async Task<CreateResponse> CreateSettings(string token, string mercado, int inventory, string user, string password)
+    /// <summary>
+    /// Crear ajuste de inventario con conexión con Open Store.
+    /// </summary>
+    /// <param name="token">Token de acceso (Inventario).</param>
+    /// <param name="mercado">Token de acceso a Mercado Pago.</param>
+    /// <param name="inventory">Id del inventario.</param>
+    /// <param name="user">Usuario actual.</param>
+    /// <param name="password">Contraseña actual.</param>
+    public static async Task<CreateResponse> Create(string token, string mercado, int inventory, string user, string password)
     {
 
         // Cliente HTTP.
@@ -29,7 +36,12 @@ public static class OpenStore
     }
 
 
-    public static async Task<ReadOneResponse<OpenStoreSettings>> ReadSettings(string token, int inventory)
+    /// <summary>
+    /// Leer ajuste de inventario con conexión con Open Store.
+    /// </summary>
+    /// <param name="token">Token de acceso.</param>
+    /// <param name="inventory">Id del inventario.</param>
+    public static async Task<ReadOneResponse<OpenStoreSettings>> Read(string token, int inventory)
     {
 
         // Cliente HTTP.
@@ -45,43 +57,7 @@ public static class OpenStore
 
         // Retornar.
         return Content;
-
-
     }
-
-
-
-
-
-
-    public static async Task<ReadAllResponse<Types.Payments.Models.PayModel>> Payments(string token, int inventory)
-    {
-
-        // Cliente HTTP.
-        Client client = Service.GetClient("OpenStoreSettings/payments");
-
-        // Headers.
-        client.AddHeader("token", token);
-
-        client.AddParameter("inventory", inventory);
-
-        // Resultado.
-        var Content = await client.Get<ReadAllResponse<Types.Payments.Models.PayModel>>();
-
-        // Retornar.
-        return Content;
-
-
-    }
-
-
-
-
-
-
-
-
-
 
 
     /// <summary>
@@ -106,4 +82,5 @@ public static class OpenStore
 
 
     }
+
 }

@@ -19,7 +19,7 @@ public static class Holds
         client.AddHeader("token", token);
 
         // Resultado.
-        var Content = await client.Post<ReadAllResponse<HoldModel>>();
+        var Content = await client.Get<ReadAllResponse<HoldModel>>();
 
         // Retornar.
         return Content;
