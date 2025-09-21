@@ -12,7 +12,7 @@ public static class Inventories
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory");
+        Client client = Service.GetClient("api/inventory");
 
         // Headers.
         client.AddHeader("token", token);
@@ -34,7 +34,7 @@ public static class Inventories
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/read/all");
+        Client client = Service.GetClient("api/inventory/read/all");
 
         // Headers.
         client.AddHeader("token", token);
@@ -57,7 +57,7 @@ public static class Inventories
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory");
+        Client client = Service.GetClient("api/inventory");
 
         // Headers.
         client.AddHeader("token", token);
@@ -82,7 +82,7 @@ public static class Inventories
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory");
+        Client client = Service.GetClient("api/inventory");
 
         // Headers.
         client.AddHeader("token", token);

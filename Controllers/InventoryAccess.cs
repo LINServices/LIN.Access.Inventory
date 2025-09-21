@@ -12,7 +12,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access");
+        Client client = Service.GetClient("api/inventory/access");
 
         // Headers.
         client.AddHeader("token", token);
@@ -36,7 +36,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access/update/state");
+        Client client = Service.GetClient("api/inventory/access/update/state");
 
         // Headers.
         client.AddHeader("id", id);
@@ -62,7 +62,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access/update/rol");
+        Client client = Service.GetClient("api/inventory/access/update/rol");
 
         // Headers.
         client.AddParameter("id", id);
@@ -86,7 +86,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access/read/all");
+        Client client = Service.GetClient("api/inventory/access/read/all");
 
         // Headers.
         client.AddHeader("token", token);
@@ -109,7 +109,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access");
+        Client client = Service.GetClient("api/inventory/access");
 
         // Headers.
         client.AddHeader("token", token);
@@ -134,7 +134,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access/members");
+        Client client = Service.GetClient("api/inventory/access/members");
 
         // Headers.
         client.AddHeader("token", tokenLocal);
@@ -160,7 +160,7 @@ public static class InventoryAccess
     {
 
         // Cliente HTTP.
-        Client client = Service.GetClient("inventory/access/delete/one");
+        Client client = Service.GetClient("api/inventory/access/delete/one");
 
         // Headers.
         client.AddHeader("token", token);

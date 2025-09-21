@@ -19,7 +19,7 @@ public static class Build
     public static IServiceCollection AddInventoryService(this IServiceCollection service, string? url = null, string? app = null)
     {
         Service._Service = new();
-        Service._Service.SetDefault(url ?? "https://api.inventory.linplatform.com/");
+        Service._Service.SetDefault(url ?? "https://api.linplatform.com/Inventory/");
         Application = app ?? "default";
         return service;
     }

@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Inventory.Controllers;
+﻿using LIN.Types.Cloud.Identity.Models.Identities;
+
+namespace LIN.Access.Inventory.Controllers;
 
 public static class Outflows
 {
