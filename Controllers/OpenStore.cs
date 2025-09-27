@@ -70,6 +70,7 @@ public static class OpenStore
 
         // Cliente HTTP.
         Client client = Service.GetClient("connectors/OpenStore/hold");
+        client.TimeOut = 120;
 
         // Headers.
         client.AddHeader("token", token);
@@ -79,8 +80,6 @@ public static class OpenStore
 
         // Retornar.
         return Content;
-
-
     }
 
 }
