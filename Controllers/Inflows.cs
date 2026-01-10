@@ -107,4 +107,24 @@ public static class Inflows
 
     }
 
+
+   
+    public static async Task<ResponseBase> Comfirm(int id,  string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("inflow/comfirm");
+
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
+
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
+
+        // Retornar.
+        return Content;
+
+    }
+
 }

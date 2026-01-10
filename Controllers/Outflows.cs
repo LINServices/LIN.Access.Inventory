@@ -109,4 +109,22 @@ public static class Outflows
 
     }
 
+
+    public static async Task<ResponseBase> Reverse(int id, string token)
+    {
+
+        // Cliente HTTP.
+        Client client = Service.GetClient("outflow/reverse");
+
+        // Headers.
+        client.AddHeader("id", id);
+        client.AddHeader("token", token);
+
+        // Resultado.
+        var Content = await client.Patch<ResponseBase>();
+
+        // Retornar.
+        return Content;
+
+    }
 }
